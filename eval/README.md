@@ -60,7 +60,7 @@ Tên lỗi rút ra: **đoán khi mơ hồ** (→ `hoi_lai_khi_mo_ho`) · **khẳ
 
 | Lượt | Run ID | Model | Cấu hình (prompt / công cụ / thay đổi) | Đạt / tổng | % | Đạt chuẩn? |
 |---|---|---|---|---|---|---|
-| 1 | | | | __/__ | | |
+| 1 | `run-1@20261127-235046` | `deepseek-ai/DeepSeek-V4.1-Flash-1017` | code `main` `dc057e5`: lọc câu mơ hồ → `search_lesson` → model → guardrails (Hiệp); chấm: Dương Ngọc Tuyên | 18/21 | 86% | chưa — trượt điều (1) `trich_dung_doan` 7/9 = 78% < 80%, (3) B17, (4) B13; đạt điều (2) 0 mã bịa |
 | 2 | | | | __/__ | | |
 
 Lượt chạy lại vì lỗi kỹ thuật, lượt sau CP4: ghi thêm dòng, không sửa dòng cũ.
