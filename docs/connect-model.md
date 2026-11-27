@@ -19,6 +19,7 @@ API_KEY=<key của nhóm, không dấu ngoặc kép>
 - `MODEL_NAME` là **mã gọi API** của model, lấy ở trang tài liệu của nhà cung cấp.
 - Chưa điền `MODEL_PROVIDER` thì `ai.py` chạy **chế độ giả** (câu giả, token 0). Dùng được cho bản khung trước CP2, nhưng `run.py eval` và `run.py simulate` không tính lượt đó.
 - `.env` đã có trong `.gitignore`. **Không commit key.**
+- `codebase/ai.py` đã có sẵn nhánh `MODEL_PROVIDER=openai` và `MODEL_PROVIDER=deepinfra`. Với DeepInfra, điền mã model và khóa của DeepInfra, rồi dùng `python run.py eval --try` khi bài mẫu và benchmark đã sẵn sàng. [Tài liệu DeepInfra](https://deepinfra.com/blog/glm-5-3-model-integration-guide)
 
 ## 2. Chép code vào `codebase/ai.py`
 

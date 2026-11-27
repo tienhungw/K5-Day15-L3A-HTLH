@@ -9,21 +9,26 @@ Hợp đồng:
     do luồng của nhóm tự đọc qua công cụ trong tools.py.
 
 Hình dạng: đúng như sơ đồ ở spec.md §4 (guide bước 2.2) — workflow cố định, một agent, hay nhiều agent.
-Khung dưới đây là một workflow 2 bước VÍ DỤ, chỉ để luồng chạy hết từ trước CP2. Thay bằng luồng của nhóm.
-Nếu viết vòng lặp agent (AI tự chọn bước tiếp): đặt giới hạn MAX_STEPS và ghi lý do dừng bằng note("dừng: …").
+Công cụ tra cứu hiện vẫn trả dữ liệu mẫu của khung. Phần kiểm phản hồi dùng cùng hợp đồng đoạn bài.
 """
-from ai import call_model
-from tools import search_example
-from tracing import note  # noqa: F401
+import json
 
-SYSTEM = ""     # NHÓM VIẾT: hướng dẫn hệ thống cho model (vai trò, phạm vi, khi nào nói "không có")
-MAX_STEPS = 5   # dùng khi viết vòng lặp agent
+from ai import call_model
+from guardrails import CLARIFY, NO_SUPPORT, SYSTEM, render_reply
+from tools import search_example
+from tracing import note
 
 
 def answer(text: str) -> dict:
-    # Bước 1 (ví dụ): lấy căn cứ từ dữ liệu / công cụ của bài toán
+    if not text.strip():
+        return {"output": CLARIFY}
     found = search_example(text)
-    context = "\n".join("[%s] %s" % (p["code"], p["text"]) for p in found)
-    # Bước 2 (ví dụ): model quyết định dựa trên căn cứ
-    reply = call_model(SYSTEM, "Căn cứ:\n%s\n\nĐầu vào của người dùng:\n%s" % (context, text))
-    return {"output": reply["text"]}
+    payload = json.dumps({"cau_hoi": text, "doan_bai": found}, ensure_ascii=False)
+    reply = call_model(SYSTEM, payload)
+    output = render_reply(reply["text"], found)
+    if output is None:
+        note("chặn phản hồi: phản hồi sai định dạng hoặc trích dẫn thiếu căn cứ")
+        output = NO_SUPPORT
+    if reply["model"] == "fake":
+        output = "[chế độ giả] " + output
+    return {"output": output}

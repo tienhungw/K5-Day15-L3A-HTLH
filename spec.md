@@ -33,28 +33,53 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): `data/prec
 - [sản phẩm / tính năng gần giống]: một điều đáng học · một điều đáng né · mình khác gì
 
 ## §4. Thiết kế *(guide 2.2, 3.2)*
-- **Lát cắt MỘT CÂU** (1 người dùng · 1 việc · 1 quyết định AI · 1 kết quả):
-- Không làm (≥3 điều):
-- **Sơ đồ** (ảnh / Mermaid / draw.io): [chèn ở đây]
-- **Hình dạng:** [ ] workflow cố định · [ ] một agent · [ ] nhiều agent — 2 dòng lý do, và vì sao **không** chọn hình dạng phức tạp hơn:
-- **AI dựa vào đâu** — mỗi công cụ (khớp `codebase/tools.py`):
 
-  | Công cụ | Input | Output | Tác động ra ngoài? |
-  |---|---|---|---|
-  |  |  |  |  |
+**Lát cắt một câu.** Một học viên L3 hỏi một câu dưới video pre-class, trợ giảng chọn trả lời kèm mã đoạn, hỏi lại một câu hoặc báo thiếu căn cứ để học viên biết cách kiểm lại với bài hoặc hỏi tiếp.
 
-- **Mức tự động:** [ ] AI gợi ý, người quyết · [ ] AI tự làm khi chắc, chuyển người khi không · [ ] AI tự làm — lý do (sai thì ai chịu gì, sửa đắt hay rẻ):
-- **Chỗ chặn rủi ro** (rủi ro lớn nhất của lát cắt bị chặn ở đâu, bằng gì):
-- **Chỗ người duyệt** (việc AI không được tự làm):
-- **Nguyên tắc thiết kế** (≥3, bắt buộc G10):
+**Ngoài phạm vi**
 
-  | Nguyên tắc | Chỗ cụ thể trên sơ đồ / trong bản chạy thử |
-  |---|---|
-  | G10 — thu hẹp phạm vi khi không chắc |  |
-  |  |  |
-  |  |  |
+- Làm hộ bài tập hoặc cung cấp lời giải hoàn chỉnh cho bài học viên cần tự làm.
+- Tra web hoặc dùng bài khác để trả lời câu hỏi về video đang xem.
+- Gửi tin cho TA, chấm điểm hoặc thay đổi dữ liệu của khoá học.
 
-- Phần nào còn giả (công cụ trả dữ liệu giả, model chế độ giả…) — ghi rõ, không giả làm thật:
+```mermaid
+flowchart TD
+    Q["Học viên gửi câu hỏi"] --> B{"Câu hỏi trống?"}
+    B -->|Có| C["Hỏi lại một câu"]
+    B -->|Có nội dung| R["Tra đoạn bài theo câu hỏi"]
+    R --> M["Model chọn nhánh từ câu hỏi và đoạn tra được"]
+    M -->|Mơ hồ| C
+    M -->|Thiếu căn cứ hoặc ngoài phạm vi| H["Hiện lời báo và bước tiếp phù hợp"]
+    M -->|Có căn cứ| V{"Mã đoạn và trích dẫn hợp lệ?"}
+    M -->|Sai định dạng| F["Báo chưa đủ căn cứ và chỉ đường hỏi TA"]
+    V -->|Có| A["Hiện trích đoạn nguyên văn kèm mã"]
+    V -->|Thiếu hoặc sai| F
+    C -->|Học viên bổ sung câu hỏi| Q
+```
+
+**Hình dạng đã chọn · workflow cố định**
+
+- Mỗi câu hỏi có một nguồn tra cứu, một lần chọn nhánh và một bước kiểm trước khi hiện kết quả.
+- Vòng lặp để agent tự chọn công cụ sẽ thêm lượt gọi. Chuỗi bước cố định giúp nhóm tái hiện lỗi theo trace và đo chi phí theo từng câu.
+
+**Công cụ trong bản chạy thử**
+
+| Công cụ | Input | Output | Tác động ra ngoài? |
+|---|---|---|---|
+| `search_example` trong `codebase/tools.py` | Câu hỏi dạng `str` | Danh sách đoạn có `code` và `text`. Bản hiện tại trả đoạn mẫu `VD-1`. | Không. Công cụ chỉ trả dữ liệu. |
+
+- **Mức tự động.** AI tự trả lời khi có căn cứ, hỏi lại khi thiếu thông tin và chỉ đường hỏi TA khi chưa có căn cứ. Học viên có thể dùng mã để kiểm lại ngay. Trích sai hoặc bịa nguồn có thể làm học viên học sai ý trước buổi lớp.
+- **Chỗ chặn rủi ro.** Prompt coi câu hỏi và đoạn bài là dữ liệu, giới hạn căn cứ ở các đoạn vừa tra và từ chối làm hộ bài. Trước khi hiện câu trả lời, `codebase/guardrails.py` kiểm từng mã đoạn và đối chiếu từng trích dẫn với đoạn tương ứng. Phản hồi sai định dạng hoặc có một trích dẫn không hợp lệ sẽ chuyển sang lời báo thiếu căn cứ và hướng dẫn hỏi TA.
+- **Chỗ người duyệt.** Học viên tự kiểm trích dẫn trong bài hoặc hỏi TA để được giải thích. TA hoặc giảng viên xem xét và thực hiện các việc có tác động như gửi tin, sửa dữ liệu và chấm điểm.
+
+| Nguyên tắc | Chỗ áp dụng |
+|---|---|
+| G10 · Thu hẹp phạm vi khi không chắc | Hỏi lại một câu khi mơ hồ và dừng ở hướng dẫn hỏi TA khi thiếu căn cứ. |
+| Cho người dùng kiểm nguồn | Hiện trích đoạn nguyên văn kèm mã đoạn để học viên đối chiếu. |
+| Để người dùng sửa đầu vào | Học viên bổ sung thuật ngữ hoặc gửi lại câu hỏi, rồi workflow tra cứu theo câu mới. |
+| Giữ quyền quyết định ở người có thẩm quyền | Công cụ chỉ đọc. TA hoặc giảng viên xử lý các việc ảnh hưởng đến người học hay dữ liệu khoá học. |
+
+**Trạng thái bản chạy.** `search_example` vẫn trả đoạn mẫu cố định. Nhánh DeepInfra đã gọi thật và đo được 51 token vào, 11 token ra trong lần thử kết nối. Ba ca chặn rủi ro đã qua với model thật và dữ liệu kiểm thử cố định. Chế độ `fake` vẫn dùng được để chạy cục bộ.
 
 ## §5. Chỗ khó — 4 lớp + ≥6 kịch bản + 2 tấn công *(guide 2.3)*
 
@@ -72,8 +97,15 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): `data/prec
 (1) nguồn sự thật · (2) mơ hồ / thiếu thông tin · (3) ngoài phạm vi / thẩm quyền · (4) đặc thù lĩnh vực (sai thì người dùng mất gì đắt nhất)
 
 ## §6. Bốn đường đi của trải nghiệm
-- Mọi thứ suôn sẻ: · Không chắc (lớp 2): · Không có căn cứ (lớp 1): · Người dùng sửa:
-- Bị đòi ngoài phạm vi (lớp 3): · Trường hợp đặc thù lĩnh vực (lớp 4):
+
+| Tình huống | Học viên thấy gì và làm gì tiếp |
+|---|---|
+| Suôn sẻ | Nhận trích đoạn nguyên văn kèm mã. Dùng mã để tìm đoạn tương ứng và đối chiếu với video. |
+| Không chắc hoặc câu hỏi mơ hồ · lớp 2 | Trợ giảng hỏi một câu để xác định ý hoặc thuật ngữ. Học viên bổ sung chi tiết rồi gửi lại. |
+| Thiếu căn cứ · lớp 1 | Với câu ngoài bài, trợ giảng báo không có trong bài và chỉ đường hỏi TA. Với phản hồi có nguồn không khớp, trợ giảng báo chưa đủ căn cứ và đưa cùng hướng dẫn. |
+| Người dùng sửa | Học viên gửi lại câu hỏi với thuật ngữ hoặc ngữ cảnh đã sửa. Workflow tra đoạn và quyết định lại theo câu mới. |
+| Bị đòi ngoài phạm vi · lớp 3 | Khi bị yêu cầu làm hộ bài tập, trợ giảng nói bài cần tự làm và mời học viên chọn một khái niệm trong video để được giải thích. |
+| Trường hợp đặc thù lĩnh vực · lớp 4 | Nếu đoạn bài chứa điều kiện hoặc phủ định, câu trả lời cần giữ phần đó trong trích đoạn để học viên kiểm lại trước buổi lớp. |
 
 ## §7. Đánh giá & chuẩn "đạt" *(guide 2.4, 4.1)*
 - Data card: `data/DATA_CARD.md` · bộ câu thử: `eval/benchmark.csv` — __ câu (thuong __ · kho __ · tu_choi __) · metric: `eval/metric_spec.yaml` (__ metric)
@@ -87,9 +119,9 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): `data/prec
 - So với impact / người / tháng (§2): đáng làm không, vì sao:
 
 ## §9. Rủi ro & an toàn
-- Dữ liệu: đã ẩn danh gì, không thu gì, không đưa gì vào model gói miễn phí:
-- AI **không được** làm gì kể cả khi người dùng yêu cầu:
-- Ai có thể bị hại nếu AI sai, và nhóm chặn thế nào:
+- Dữ liệu đưa vào model và trace gồm đoạn bài mẫu và câu hỏi đã bỏ thông tin nhận diện. Khóa API dùng cấu hình cục bộ.
+- AI chỉ tra và trả lời theo bài, hỏi lại hoặc chỉ đường đến TA. Việc gửi tin, thay đổi dữ liệu hay chấm điểm do người có thẩm quyền thực hiện.
+- Học viên có thể hiểu sai trước buổi lớp. Phần hiển thị gắn trích đoạn nguyên văn với mã để học viên mở bài đối chiếu.
 
 ## §10. Phân công & changelog
 - Phân công có tên (theo chặng, chia cặp — guide "Cách chia việc"): __
