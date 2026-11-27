@@ -10,7 +10,7 @@ README của nhóm có mục "Dùng AI vào việc gì" (2–3 dòng, bắt bu�
 | Prompt / thiết kế lời gọi mô hình | | | | |
 | Đào data (viết script đếm, gợi ý nhãn) | Claude Code | Viết `evidence/dao_data.py`, đề xuất cách đếm M1–M5 | Chạy lại script, đối chiếu tay __ dòng với `chat.csv` / `events.csv`, khớp __ | Nguyễn Tiến Hưng |
 | Sắp khung repo, nháp canvas / TEAMS (CP1) | Claude Code | Chép starter-repo ra thư mục gốc, nháp các dòng canvas | Cả nhóm đọc lại canvas, sửa lời cho đúng ý nhóm | Nguyễn Tiến Hưng |
-| Rà câu hỏi phỏng vấn / khảo sát | | Chỉ rà câu dẫn dắt | | |
+| Rà câu hỏi phỏng vấn / khảo sát | Claude Code | Soạn 7 câu hỏi mở về chuyện đã xảy ra; gắn nhãn 22 câu trả lời khảo sát (`evidence/survey/nhan.csv`) và viết `dem_khao_sat.py` | Đọc lại 22 dòng nhãn đối chiếu `results.csv`, sửa dòng gắn sai: __ dòng | Nguyễn Tiến Hưng |
 | Viết câu thử (benchmark) | | | Mỗi câu thử có `source`; câu thử AI viết được ghi rõ | |
 | Sinh data `synthetic` (nếu có) | | | Seed __ · kiểm tay __ dòng | |
 | Chấm cột `pass` bằng LLM (nếu có) | | | Kiểm tra thủ công __ câu thử, khớp __/__ | |

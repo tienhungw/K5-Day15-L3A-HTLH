@@ -1,0 +1,23 @@
+id,hoi_tro_giang,loai_cau_hoi,thay_lech,kiem_voi_bai,phut_kiem,sang_nguon_khac,loai_nguon_khac,so_lan_thang,ghi_chu
+KS01,co,mo_ho,co,khong,,co,ai_internet,,q5 không có số
+KS02,co,mo_ho,co,khong,,co,ai_internet,20,"""phần này"" + xin video khác"
+KS03,co,khong_ro,khong,khong,,khong,,1,"q3 là ""dùng mẫu có sẵn"", không nêu câu"
+KS04,co,mo_ho,co,co,7.5,co,ai_internet,,"q4 5–10 phút; q5 ""mỗi bài hơn chục lần"" không quy ra tháng"
+KS05,co,mo_ho,co,co,10,co,ai_internet,7,q4 5–15 phút
+KS06,co,ngoai_noi_dung,co,khong,,co,ai_internet,25,hỏi độ khó của bài
+KS07,co,mo_ho,co,co,7.5,co,ai_internet,,"hỏi ""toàn bộ bài học hôm nay""; q4 5–10 phút; q5 ""vô số"""
+KS08,co,ngoai_noi_dung,khong,khong,,co,ai_internet,15,"hỏi góp ý build phase; q5 10–20 lần lấy 15"
+KS09,co,mo_ho,khong,co,7.5,co,ai_internet,3.5,"""kết quả đó""; q4 5–10 phút; q6 ""chỉ chưa chi tiết"""
+KS10,co,ngoai_noi_dung,co,khong,,co,nguoi,15,hỏi độ khó lecture; q6 đi hỏi lab coach
+KS11,co,ngoai_noi_dung,co,khong,,co,nguoi,16,hỏi lịch học; tự kiểm với lịch Outlook; q7 hỏi lab coach
+KS12,khong,,khong,,,,,,"không hỏi trợ giảng dưới video, hỏi ở ngoài"
+KS13,co,ngoai_noi_dung,khong,khong,,khong,,26,hỏi nên xem lại video mấy lần / tuần
+KS14,co,ngoai_noi_dung,co,khong,,co,nguoi,27,hỏi kế hoạch build phase; bàn lại với team
+KS15,co,cu_the,co,co,3.5,khong,,6.5,"q4 3–4 phút; q6 day 7 retrieval khác flow thầy"
+KS16,khong,,,,,,,,không hỏi trợ giảng
+KS17,co,cu_the,khong_ro,khong,,khong,,1,"q6 ""không biết nó sai hay đúng"""
+KS18,co,ngoai_noi_dung,khong,khong,,khong,,28,hỏi lịch demo day
+KS19,co,cu_the,co,khong,,co,ai_internet,7.5,"q4 mang sang GPT, 10 phút cả hai bên; q5 7–8 lần"
+KS20,co,khong_ro,co,khong,,co,ai_internet,,"q3 không nhớ; q6 ""có, hoặc do mình hiểu chưa đúng"""
+KS21,co,cu_the,khong_ro,co,12.5,co,ai_internet,,"q4 10–15 phút; q5 ""hơn 10 lần"""
+KS22,co,cu_the,co,co,10,co,ai_internet,3.5,q4 khoảng 10 phút; q5 3–4 lần

@@ -11,52 +11,52 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): `data/prec
   1. Học viên mở bài, xem video bài giảng. Bài chia thành các phần có mốc thời gian (ví dụ Ngày 1 có 5 phần, video 21:51); câu hỏi quiz bật lên giữa video.
   2. Chưa hiểu thì gõ câu hỏi vào khung "Tương tác lớp học → Trao đổi" bên phải video (1.091 câu, 144 học viên, 05–25/11), hoặc bôi đen chữ trên slide rồi bấm hỏi (433 lượt `slide_text_asked`).
   3. Trợ giảng trả lời sau khoảng 2,4 giây (trung vị; p90 4,6 giây). Khi có trích dẫn, câu trả lời kèm các nút "Trong bài giảng ở **Phần 1 · 00:40**" để mở đúng mốc video (ảnh dưới). 231/557 câu trả lời (41,5%) không có mốc nào. Dưới ô nhập có dòng "Câu trả lời được grounding theo nội dung buổi học".
-  4. Học viên đọc câu trả lời, rồi hỏi tiếp, tua lại video, hoặc rời trang sang ChatGPT / Gemini / internet để kiểm (5/6 người được hỏi).
+  4. Học viên đọc câu trả lời, rồi hỏi tiếp, tua lại video, hoặc rời trang sang ChatGPT / Gemini / internet hoặc hỏi bạn, lab coach (15/20 người trả lời khảo sát).
 
   ![Trợ giảng dưới video: câu hỏi "Bài hôm nay có khó không?" và câu trả lời kèm mốc Phần 1 · 00:40, Phần 1 · 01:28](evidence/img/tro-giang-duoi-video.png)
 
-  *Ảnh chụp tài khoản của Nguyễn Tiến Hưng, 27/11/2026. Câu hỏi giống câu P1 kể đã hỏi. Ở lượt này trợ giảng có trích mốc, nhưng mốc 00:40 và 01:28 trỏ vào phần mở đầu, còn ý "năm phần, khoảng hai mươi phút" lấy từ cấu trúc bài: học viên không biết mốc nào đỡ cho câu nào.*
+  *Ảnh chụp tài khoản của Nguyễn Tiến Hưng, 27/11/2026. Câu hỏi giống câu KS06 và KS10 kể đã hỏi. Ở lượt này trợ giảng có trích mốc, nhưng mốc 00:40 và 01:28 trỏ vào phần mở đầu, còn ý "năm phần, khoảng hai mươi phút" lấy từ cấu trúc bài: học viên không biết mốc nào đỡ cho câu nào.*
 - Công cụ / AI đang được dùng: trợ giảng AI ("Trợ giảng Snoop") trong khung Tương tác lớp học của trang pre-class. Ngữ cảnh nó dùng có hai mức: chỉ đoạn quanh lúc hỏi (`hep`, 91 câu) hoặc lời giảng cả ngày (`ca_ngay`, 458 câu); 542 câu không ghi trường này. Tên model ghi chung là `model_chinh` / `fallback`. Cách chọn mốc trích dẫn bên trong: **chưa kiểm**.
 
 ## §1. Người dùng & bằng chứng *(guide 1.1, 1.2)*
-- Người dùng chính (một vai cụ thể): học viên L3 khoá 5 tự xem video pre-class ở nhà (6/6 người được hỏi xem ở nhà; 3/6 nói rõ là buổi tối) và hỏi trợ giảng ngay dưới video khi chưa hiểu một ý.
-- Việc họ cố làm xong (`động từ + đối tượng + bối cảnh`, không có chữ AI): hiểu đúng một ý trong video bài giảng trước buổi lớp, khi tự học ở nhà và không có ai bên cạnh để hỏi.
+- Người dùng chính (một vai cụ thể): học viên L3 khoá 5 tự xem video pre-class ngoài giờ lớp (phần lớn ở nhà hoặc phòng trọ, theo khảo sát) và hỏi trợ giảng ngay dưới video khi chưa hiểu một ý.
+- Việc họ cố làm xong (`động từ + đối tượng + bối cảnh`, không có chữ AI): hiểu đúng một ý trong video bài giảng trước buổi lớp, khi tự học một mình và không có ai bên cạnh để hỏi.
 - Hôm nay họ giải bằng gì, hỏng ở đâu, vì sao chưa bỏ:
-  - **Giải bằng:** hỏi trợ giảng dưới video (1.091 câu, 144 học viên, 05–25/11). Nghi câu trả lời thì sang ChatGPT, Gemini, internet, hỏi bạn (5/6 người được hỏi).
-  - **Hỏng ở đâu:** 41,5% câu trả lời không trỏ về mốc nào trong bài (data). 5/6 người đã gặp câu trả lời lệch bài. Chỉ 2/6 kiểm lại được với bài, mất 5–15 phút.
-  - **Vì sao chưa bỏ:** trợ giảng "hiện sẵn và có hướng dẫn hỏi" (P2); ChatGPT "khá nhanh có kết quả" (P3).
-- Pain (KHÔNG chữ AI): học viên L3 — tự xem video pre-class ở nhà, hỏi ngay dưới video khi chưa hiểu — câu trả lời không chỉ ra đoạn nào trong bài nói điều đó và có lúc lệch bài — họ không tự kiểm được với bài, phải mất 5–15 phút đối chiếu hoặc rời bài sang nguồn ngoài không theo cách giảng của khoá.
+  - **Giải bằng:** hỏi trợ giảng dưới video (1.091 câu, 144 học viên, 05–25/11). Nghi câu trả lời thì sang ChatGPT, Gemini, internet (12/20) hoặc hỏi bạn, lab coach (3/20).
+  - **Hỏng ở đâu:** 41,5% câu trả lời không trỏ về mốc nào trong bài (data). 13/20 người đã gặp câu trả lời lệch bài. Chỉ 7/20 kiểm lại được với bài, trung vị 7,5 phút.
+  - **Vì sao chưa bỏ:** "vẫn ưu tiên hỏi trợ giảng vì tiện, ko phải chuyển tab" (KS15); "hiện sẵn và có hướng dẫn hỏi" (KS03).
+- Pain (KHÔNG chữ AI): học viên L3 — tự xem video pre-class, hỏi ngay dưới video khi chưa hiểu — câu trả lời không chỉ ra đoạn nào trong bài nói điều đó và có lúc lệch bài — họ không tự kiểm được với bài, mất khoảng 7,5 phút đối chiếu hoặc rời bài sang nguồn ngoài không theo cách giảng của khoá; có người còn "không biết nó sai hay đúng" (KS17).
 - Bằng chứng — số chính + kết luận (chi tiết: `evidence/summary.md`):
-  - Data: 231/557 câu trả lời (41,5%) không trích mốc bài; 58/84 học viên (69%) gặp ít nhất một lần.
-  - Người dùng (Google Form, n = 6): 5/6 từng thấy câu trả lời lệch bài; 2/6 kiểm lại với bài, mất 5–15 phút.
-  - Kết luận: giả thuyết **đúng một phần**. Giữ lát cắt; hậu quả chỉnh thành "rời bài sang nguồn ngoài".
+  - **Data:** 231/557 câu trả lời (41,5%) không trích mốc bài; 58/84 học viên (69%) gặp ít nhất một lần.
+  - **Khảo sát** (n = 22, 20 người từng hỏi trợ giảng): 13/20 từng gặp câu trả lời lệch bài · 15/20 phải sang nguồn khác · 7/20 kiểm lại với bài (trung vị 7,5 phút).
+  - **Kết luận:** giả thuyết **đúng một phần**; giữ lát cắt, hậu quả chỉnh thành "rời bài sang nguồn ngoài".
 
 ## §2. Impact & quyết định chọn *(guide 1.3)*
 
 | Hướng | Bao nhiêu người gặp | Bao nhiêu lần / tháng | Mỗi lần tốn gì | Impact / tháng | Làm kịp không | Chọn? |
 |---|---|---|---|---|---|---|
-| A · Trả lời kèm mã đoạn của bài, hoặc nói "không có trong bài"; hỏi lại khi câu hỏi chỉ trỏ "đoạn này" | 58/84 học viên có hỏi (69%) nhận ≥1 câu không trích mốc *(data)* · 5/6 người được hỏi từng gặp câu trả lời lệch bài | ≈533 câu trả lời không trích mốc / tháng *(data: 231 câu trong 13 ngày × 30/13)* | 5–15 phút đối chiếu với bài (P3, P4), hoặc rời bài sang ChatGPT / Gemini / internet (5/6) | ≈15–133 giờ học viên / tháng, cơ sở ≈74 giờ (công thức dưới) | Kịp: một công cụ tra đoạn + một lời gọi model | **Chọn** |
-| B · Chỉ hỏi lại khi câu hỏi quá ngắn / mơ hồ | 165/1.091 câu hỏi (15,1%) dưới 20 ký tự *(data)* · 4/6 câu đã hỏi chỉ trỏ "đoạn này / phần này" | ≈236 câu / tháng *(165 trong 21 ngày × 30/21)* | Một câu trả lời lệch ý + một lượt hỏi lại *(chưa đo số phút)* | chưa tính được | Kịp | Gộp vào A thành một nhánh của quyết định |
+| A · Trả lời kèm mã đoạn của bài; nói "không có trong bài" khi không có căn cứ; hỏi lại khi câu hỏi chỉ trỏ "đoạn này" | 58/84 học viên có hỏi (69%) nhận ≥1 câu không trích mốc *(data)* · 13/20 người khảo sát từng gặp câu trả lời lệch bài | ≈533 câu trả lời không trích mốc / tháng *(data: 231 câu trong 13 ngày × 30/13)* | Trung vị 7,5 phút đối chiếu với bài (3,5–12,5; 7 người), hoặc rời bài sang nguồn ngoài (15/20) | ≈11–83 giờ học viên / tháng, cơ sở ≈43 giờ (công thức dưới) | Kịp: một công cụ tra đoạn + một lời gọi model | **Chọn** |
+| B · Chỉ hỏi lại khi câu hỏi quá ngắn / mơ hồ | 165/1.091 câu hỏi (15,1%) dưới 20 ký tự *(data)* · 6/20 câu đã hỏi chỉ trỏ "đoạn này" hoặc quá rộng *(khảo sát)* | ≈236 câu / tháng *(165 trong 21 ngày × 30/21)* | Một câu trả lời lệch ý + một lượt hỏi lại *(chưa đo số phút)* | chưa tính được | Kịp | Gộp vào A thành một nhánh |
 | C · Báo cáo "lớp đang kẹt gì" cho giảng viên trước buổi | Giảng viên khoá *(số người: chưa có nguồn)* | 1 lần / buổi *(tự ước tính)* | Thời gian giảng viên tự đoán chỗ kẹt *(chưa có số)* | chưa tính được | Khó: người dùng là giảng viên, khó gặp đủ trong 2 ngày | Không |
 
-- **Impact / tháng** của hướng A = số câu trả lời không trích mốc × tỉ lệ người phải đi kiểm × số phút mỗi lần:
-  - **Thấp:** 533 × 2/6 (chỉ người kiểm với bài: P3, P4) × 5 phút ≈ 888 phút ≈ **15 giờ**
-  - **Cơ sở:** 533 × 5/6 (người đã gặp câu trả lời lệch bài) × 10 phút ≈ 4.442 phút ≈ **74 giờ**
-  - **Cao:** 533 × 1 × 15 phút ≈ 7.995 phút ≈ **133 giờ**
-  - Nguồn: 533 từ `evidence/dao_data.py` (M1, M9); 2/6, 5/6, 5–15 phút từ `evidence/interviews/P1–P6`. *(tự ước tính: lấy tỉ lệ theo người (x/6) áp cho từng câu trả lời; số phút chỉ có từ 2 người)*
-  - Mỗi học viên có hỏi trợ giảng (58 người nhận câu không trích mốc): cơ sở ≈ 74 giờ ÷ 58 ≈ **1,3 giờ / người / tháng**.
+- **Impact / tháng** của hướng A = số câu trả lời không trích mốc × tỉ lệ người bị ảnh hưởng × số phút mỗi lần. Chạy `python evidence/survey/dem_khao_sat.py` ra đúng các số này:
+  - **Thấp:** 533 × 7/20 (chỉ người kiểm với bài) × 3,5 phút ≈ 653 phút ≈ **11 giờ**
+  - **Cơ sở:** 533 × 13/20 (người đã gặp câu trả lời lệch bài) × 7,5 phút (trung vị) ≈ 2.599 phút ≈ **43 giờ**
+  - **Cao:** 533 × 15/20 (người phải sang nguồn khác) × 12,5 phút ≈ 4.998 phút ≈ **83 giờ**
+  - Nguồn: 533 từ `evidence/dao_data.py` (M1, M9); tỉ lệ và số phút từ `evidence/survey/` (n = 20). *(tự ước tính: lấy tỉ lệ theo người áp cho từng câu trả lời; số phút chỉ có từ 7 người)*
+  - Mỗi học viên nhận câu không trích mốc (58 người): cơ sở ≈ 43 giờ ÷ 58 ≈ **0,75 giờ / người / tháng**.
 - Hướng ĐÃ LOẠI + vì sao (giữ lại, đừng xoá):
   - **C:** bằng chứng phải đến từ giảng viên, nhóm khó hẹn đủ người trước CP3; data pre-class chỉ đo phía học viên.
-  - **B** không làm riêng: 4/6 câu người dùng đã hỏi chỉ trỏ "đoạn này", nên hỏi lại khi mơ hồ được gộp vào A thành một nhánh của cùng một quyết định.
+  - **B** không làm riêng: 6/20 câu mơ hồ được gộp vào A thành nhánh hỏi lại của cùng một quyết định.
 - Số lần / tháng của từng kiểu người dùng (dùng cho persona ở §8). Nguồn `evidence/dao_data.py` M8, 144 học viên có hỏi trợ giảng, 21 ngày, quy ra 30 ngày:
 
-  | Kiểu | Tỉ lệ học viên | Câu hỏi / người / tháng | Đối chiếu người dùng |
+  | Kiểu | Tỉ lệ học viên | Câu hỏi / người / tháng | Đối chiếu khảo sát (q5) |
   |---|---|---|---|
-  | dùng ít (1–2 câu trong 21 ngày) | 55/144 (38,2%) | ≈1,8 *(71 câu ÷ 55 người × 30/21)* | P2: 1 lần / tháng |
-  | dùng vừa (3–9 câu) | 56/144 (38,9%) | ≈7,9 *(311 ÷ 56 × 30/21)* | P4: khoảng 7 |
-  | dùng nhiều (≥10 câu) | 33/144 (22,9%) | ≈30,7 *(709 ÷ 33 × 30/21)* | P1: 25 · P5: 20 · P3: "mỗi bài hơn chục lần" |
+  | dùng ít (1–2 câu trong 21 ngày) | 55/144 (38,2%) | ≈1,8 *(71 câu ÷ 55 người × 30/21)* | KS03, KS17: 1 lần |
+  | dùng vừa (3–9 câu) | 56/144 (38,9%) | ≈7,9 *(311 ÷ 56 × 30/21)* | KS05: 7 · KS15: 6–7 · KS19: 7–8 · KS09, KS22: 3–4 |
+  | dùng nhiều (≥10 câu) | 33/144 (22,9%) | ≈30,7 *(709 ÷ 33 × 30/21)* | KS02: 20 · KS06: 25 · KS13: 26 · KS14: 27 · KS18: 28 |
 
-  Chỉ tính người đã hỏi trợ giảng (144/436 người có hoạt động). Quy mô thật khi phóng lên (lớp L3 hơn 700 học viên) tính ở §8.
+  Chỉ tính người đã hỏi trợ giảng (144/436 người có hoạt động). Khảo sát hỏi "số lần phải hỏi chỗ khác", không phải số câu hỏi, nên chỉ dùng để đối chiếu thứ bậc. Quy mô thật khi phóng lên (lớp L3 hơn 700 học viên) tính ở §8.
 
 ## §3. Giải pháp tương tự *(guide 2.1)*
 
@@ -64,7 +64,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): `data/prec
 
 - **Trợ giảng dưới video hiện tại của trang pre-class** (chính là cách đang làm; data + ảnh §0): đáng học: trả lời nhanh (trung vị 2,4 s) ngay tại chỗ; khi có trích dẫn thì là nút bấm mở đúng mốc video, rất hợp để tự kiểm · đáng né: 41,5% câu trả lời không trích mốc nào; khi có mốc thì mốc gắn cả câu trả lời, không gắn từng ý, nên học viên không biết ý nào lấy từ đâu · mình khác: **mọi** câu trả lời phải trỏ về mã đoạn có thật, không có đoạn căn cứ thì nói "không có trong bài" thay vì trả lời từ trí nhớ model.
 - **NotebookLM (Google)**, trả lời dựa trên tài liệu người dùng tải lên, kèm số trích dẫn bấm vào mở đúng đoạn nguồn *(theo mô tả công khai của Google; nhóm **chưa kiểm**, Hưng thử 10 phút với 1 đoạn bài viết lại)*: đáng học: trích dẫn bấm được, người dùng tự kiểm ngay · đáng né: học viên phải tự tải tài liệu lên, rời khỏi video đang xem · mình khác: gắn sẵn vào video đang xem, nguồn là bài của khoá, trỏ về đúng đoạn trong video.
-- **ChatGPT / Gemini dùng riêng** (cách học viên đang làm thay: 5/6 người được hỏi sang ChatGPT, Gemini hoặc internet khi nghi câu trả lời): đáng học: trả lời được mọi câu · đáng né: không biết bài của khoá nói gì, không trỏ về đâu trong video, có thể trả lời lệch với cách giảng của khoá · mình khác: chỉ trả lời từ đoạn bài tra được.
+- **ChatGPT / Gemini dùng riêng** (cách học viên đang làm thay: 12/20 người khảo sát sang ChatGPT, Gemini, AI khác hoặc internet khi nghi câu trả lời; KS19: "Sau đấy mình toàn hỏi GPT thẳng luôn"): đáng học: trả lời được mọi câu · đáng né: không biết bài của khoá nói gì, không trỏ về đâu trong video, có thể trả lời lệch với cách giảng của khoá · mình khác: chỉ trả lời từ đoạn bài tra được.
 
 ## §4. Thiết kế *(guide 2.2, 3.2)*
 - **Lát cắt MỘT CÂU** (1 người dùng · 1 việc · 1 quyết định AI · 1 kết quả):

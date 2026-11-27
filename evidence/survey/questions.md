@@ -1,85 +1,40 @@
-# Khảo sát — hỏi trợ giảng dưới video pre-class
+# Khảo sát — hỏi trợ giảng dưới video pre-class (Google Form, câu hỏi mở)
 
-> Nguồn bằng chứng thứ hai, kiểm lại số đào từ data (`evidence/data-mining.md`). Ngưỡng: **≥20 học viên L3 ngoài nhóm HTLH**. Thành viên nhóm không điền.
-> Kênh gửi: __ (nhóm lớp / Discord / nhắn riêng) · mở lúc: __ · chốt lúc: __ · link form: __
-> Không thu tên, email, mã học viên. Bản xuất lưu ở `results.csv`, đã xoá mọi cột nhận ra người trả lời.
+> Nguồn bằng chứng thứ hai, kiểm lại số đào từ data (`evidence/data-mining.md`). Ngưỡng: ≥20 học viên L3 ngoài nhóm HTLH.
+> **Kết quả:** 22 người trả lời, 27/11/2026 17:16 → 17:59. Thành viên nhóm không điền.
+> Kênh gửi: __ *(Hưng điền: nhóm lớp nào / Discord / nhắn riêng)* · người gửi: Nguyễn Tiến Hưng
+> Form không thu tên, email, mã học viên. `results.csv` là bản xuất nguyên văn, chỉ giữ dấu thời gian và 7 câu trả lời, đánh mã KS01–KS22 theo thứ tự gửi.
 
-**Tiêu đề form:** Bạn hỏi trợ giảng dưới video pre-class thế nào?
+## Câu hỏi trong form (nguyên văn, đều là câu trả lời mở)
 
-**Mô tả form:** Nhóm HTLH (L3A) đang tìm hiểu cách học viên tự học video pre-class. Khoảng 2 phút, 10 câu, không hỏi tên hay thông tin cá nhân. Hỏi về những lần đã xảy ra, không có câu trả lời đúng sai. Cảm ơn bạn!
+1. Lần gần nhất bạn xem video pre-class là hôm nào? Bạn xem lúc mấy giờ, ở đâu?
+2. Lần đó có chỗ nào bạn chưa hiểu không? Lúc đó bạn đã làm gì?
+3. Lần gần nhất bạn hỏi trợ giảng ngay dưới video, bạn hỏi gì?
+4. Câu trả lời lần đó bạn dùng thế nào? Bạn có kiểm lại với bài không? Kiểm bằng cách nào, mất bao lâu?
+5. Trong 1 tháng qua, khoảng bao nhiêu lần bạn hỏi trợ giảng xong vẫn phải tua lại video, hỏi bạn, hỏi Discord hay hỏi ChatGPT?
+6. Có lần nào bạn thấy câu trả lời không khớp với bài không? Sau đó chuyện gì xảy ra?
+7. Khi không hỏi trợ giảng thì bạn hỏi ở đâu? Vì sao chọn chỗ đó?
 
-## Phần 1 — Bạn là ai
+*(Bản câu hỏi đóng 10 câu soạn trước đó không được gửi.)*
 
-**1. Bạn là:** *(trắc nghiệm, bắt buộc)*
-- Học viên L3A
-- Học viên L3B
-- Khác → *chuyển tới cuối form (Gửi)*
+## Cách gắn nhãn (`nhan.csv`)
 
-**2. Lần gần nhất bạn xem video pre-class là khi nào?** *(trắc nghiệm, bắt buộc)*
-- Hôm nay
-- Trong 3 ngày qua
-- Trong tuần trước
-- Lâu hơn nữa
-- Chưa xem bao giờ → *chuyển tới cuối form (Gửi)*
+Câu trả lời mở nên phải gắn nhãn tay trước khi đếm. **Khai thật:** nhãn được định nghĩa sau khi đã đọc câu trả lời. Mỗi nhãn có định nghĩa dưới đây, cột `ghi_chu` trong `nhan.csv` ghi lý do cho dòng khó, để người khác gắn lại và so.
 
-**3. Lần gần nhất đó, bạn xem vào khung giờ nào?** *(trắc nghiệm, bắt buộc)*
-- Trước 12:00
-- 12:00–18:00
-- 18:00–23:00
-- Sau 23:00
-- Không nhớ
+| Cột | Giá trị | Định nghĩa |
+|---|---|---|
+| `hoi_tro_giang` | co / khong | Đã từng hỏi trợ giảng dưới video (q3, q4). `khong` → không tính vào mẫu số |
+| `loai_cau_hoi` | cu_the | q3 hỏi một ý nội dung bài, nêu rõ ý nào |
+| | mo_ho | q3 hỏi nội dung bài nhưng chỉ trỏ "đoạn này / phần này / kết quả đó" hoặc quá rộng ("toàn bộ bài") |
+| | ngoai_noi_dung | q3 hỏi điều bài giảng không dạy: độ khó, lịch học, lịch demo, kế hoạch build phase, nên học bao nhiêu |
+| | khong_ro | q3 không nêu câu hoặc không nhớ |
+| `thay_lech` | co / khong / khong_ro | q6: đã từng thấy câu trả lời không khớp, lệch, "chung chung", "theo kiến thức tổng quát" so với bài. `khong_ro` khi người trả lời nói không biết đúng hay sai |
+| `kiem_voi_bai` | co / khong | q4: kiểm câu trả lời bằng chính video, slide hoặc tài liệu buổi học |
+| `phut_kiem` | số | q4: số phút kiểm, lấy giữa khoảng (5–10 → 7,5) |
+| `sang_nguon_khac` | co / khong | q4, q6, q7 (về lần đã hỏi trợ giảng): sau câu trả lời phải hỏi nguồn khác ngoài trợ giảng và bài |
+| `loai_nguon_khac` | ai_internet / nguoi | ChatGPT, Gemini, AI khác, internet / bạn, team, lab coach |
+| `so_lan_thang` | số | q5 khi có số; khoảng thì lấy giữa (10–20 → 15); "vô số", "hơn chục lần" để trống |
 
-**4. Trong 1 tuần qua, bạn đã hỏi trợ giảng ngay dưới video (hoặc bôi đen slide để hỏi) mấy lần?** *(trắc nghiệm, bắt buộc)*
-- 0 lần → *chuyển tới cuối form (Gửi)*
-- 1–2 lần
-- 3–5 lần
-- 6–10 lần
-- Hơn 10 lần
+## Đếm
 
-## Phần 2 — Lần gần nhất bạn hỏi trợ giảng
-
-**5. Lần gần nhất bạn hỏi trợ giảng dưới video, bạn đã hỏi gì? Gõ lại gần đúng cũng được.** *(trả lời ngắn, không bắt buộc)*
-
-**6. Sau khi nhận câu trả lời lần đó, bạn đã làm gì?** *(hộp kiểm, chọn nhiều, bắt buộc)*
-- Dùng luôn câu trả lời, học tiếp
-- Tua lại video để tìm chỗ bài nói về ý đó
-- Hỏi tiếp trợ giảng
-- Hỏi bạn học hoặc hỏi trên Discord
-- Hỏi ChatGPT hoặc công cụ khác
-- Bỏ qua, chưa hiểu cũng học tiếp
-- Mục khác: ___
-
-**7. Lần đó, bạn có biết câu trả lời dựa vào đoạn nào trong bài không?** *(trắc nghiệm, bắt buộc)*
-- Có, câu trả lời chỉ rõ mốc thời gian hoặc đoạn trong bài
-- Có, mình tự tìm ra đoạn đó
-- Không biết
-- Không để ý
-
-**8. Lần đó bạn mất thêm bao lâu (sau câu trả lời) mới hiểu xong ý đó?** *(trắc nghiệm, bắt buộc)*
-- Không mất thêm
-- Dưới 2 phút
-- 2–5 phút
-- 5–15 phút
-- Hơn 15 phút
-- Đến giờ vẫn chưa hiểu hẳn
-
-**9. Trong 1 tháng qua, bạn đã mấy lần thấy câu trả lời của trợ giảng không khớp với bài hoặc với điều giảng viên nói trên lớp?** *(trắc nghiệm, bắt buộc)*
-- Chưa lần nào
-- 1 lần
-- 2–3 lần
-- Hơn 3 lần
-- Không để ý
-
-**10. Nếu có, kể ngắn lần gần nhất đó: bạn hỏi gì, câu trả lời sai hoặc lệch thế nào, bạn phát hiện ra bằng cách nào.** *(đoạn, không bắt buộc)*
-
-## Đếm thế nào (ghi trước khi xem kết quả)
-
-- **Mẫu số:** người chọn L3A hoặc L3B ở câu 1 **và** đã hỏi trợ giảng ≥1 lần ở câu 4.
-- **Số chính:**
-  - x/N chọn "Tua lại video" hoặc "Hỏi tiếp trợ giảng" ở câu 6.
-  - x/N chọn "Không biết" hoặc "Không để ý" ở câu 7.
-  - Phân bố số phút ở câu 8, dùng cho cột "mỗi lần tốn gì" ở spec §2.
-  - x/N đã từng thấy câu trả lời không khớp ở câu 9.
-- Câu 4 cho tần suất / tuần, dùng cho persona ở `cost/personas.yaml`.
-- Câu 5 cho câu thử thật trong `eval/benchmark.csv`, cột `source` ghi `nguoi_dung: KS-<số dòng trong results.csv>`.
-- Câu 10 cho trích dẫn nguyên văn (≤2 câu mỗi người, bỏ mọi chi tiết nhận ra người viết).
+`python evidence/survey/dem_khao_sat.py`. Mẫu số mọi tỉ lệ = người đã từng hỏi trợ giảng (20/22). Thêm `--bo KS10,KS11` để bỏ thử vài dòng, xem kết luận có đổi không.
