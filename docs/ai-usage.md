@@ -14,6 +14,7 @@ README của nhóm có mục "Dùng AI vào việc gì" (2–3 dòng, bắt bu�
 | Viết câu thử (benchmark) | | | Mỗi câu thử có `source`; câu thử AI viết được ghi rõ | |
 | Sinh data `synthetic` (nếu có) | | | Seed __ · kiểm tay __ dòng | |
 | Chấm cột `pass` bằng LLM (nếu có) | | | Kiểm tra thủ công __ câu thử, khớp __/__ | |
+| Chấm thử 5 output (CP2) | Claude Code | Gợi ý điểm và lý do cho 5 câu, có đối chiếu đoạn bài | Hưng đọc 5 output, đồng ý B01, B06, B10, B11 = 1; B13 = 0 với lý do của mình | Nguyễn Tiến Hưng |
 | Slide, văn bản | | | | |
 
 **Không dùng AI để:** tạo người được phỏng vấn, trích dẫn, câu trả lời khảo sát; sửa kết quả các lượt đã chạy (`eval/run-*.csv`, `cost/simulate-*.csv`, `traces/`).
