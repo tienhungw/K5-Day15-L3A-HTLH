@@ -312,15 +312,14 @@
   </div>
 
   <script>
-    const DEFAULT_REMOTE_API = "https://apiaithucchien.943269.xyz/htlh";
+    const DEFAULT_REMOTE_API = "https://hackathon-htlh.943269.xyz";
 
     function resolveApiBase() {
       const override = new URLSearchParams(window.location.search).get("api");
       if (override) return override.replace(/\/+$/, "");
       const host = window.location.hostname;
-      if (host === "localhost" || host === "127.0.0.1") return "";
-      if (host === "apiaithucchien.943269.xyz" && window.location.pathname.startsWith("/htlh")) {
-        return "/htlh";
+      if (host === "localhost" || host === "127.0.0.1" || host === "hackathon-htlh.943269.xyz") {
+        return "";
       }
       return DEFAULT_REMOTE_API;
     }

@@ -17,8 +17,8 @@ python codebase/web.py
 ## 2. Kiến trúc deploy (VPS + Cloudflare)
 
 - **Backend API (`codebase/web.py`):** chạy bằng Docker (`deploy/Dockerfile`, `deploy/compose.yaml`) trên VPS (`ovps`), lắng nghe ở `htlh-tutor:8085`.
-- **Reverse Proxy & TLS:** Caddy (`sc01-caddy-1`) trên VPS chuyển tiếp route `handle_path /htlh/*` về `htlh-tutor:8085` dưới tên miền `https://apiaithucchien.943269.xyz/htlh`.
-- **Frontend tĩnh (`deploy/pages/index.html`):** có thể mở trực tiếp tại `https://apiaithucchien.943269.xyz/htlh/` hoặc deploy thư mục `deploy/pages/` lên Cloudflare Pages (gọi API qua `https://apiaithucchien.943269.xyz/htlh`).
+- **Reverse Proxy & TLS:** Caddy (`sc01-caddy-1`) trên VPS phục vụ tên miền riêng `https://hackathon-htlh.943269.xyz` (trỏ `reverse_proxy htlh-tutor:8085`), có Cloudflare đứng trước.
+- **Frontend tĩnh (`deploy/pages/index.html`):** mở trực tiếp tại `https://hackathon-htlh.943269.xyz/` hoặc deploy thư mục `deploy/pages/` lên Cloudflare Pages (gọi API về `https://hackathon-htlh.943269.xyz`).
 
 ### Các endpoint chính
 - `GET /health` → trả trạng thái, tên `provider`, `model`, giới hạn ký tự và rate limit (không trả key).
