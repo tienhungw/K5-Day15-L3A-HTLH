@@ -14,8 +14,8 @@ Chế độ giả (mặc định khi .env chưa có MODEL_PROVIDER, hoặc MODEL
     trả một câu giả cố định, model "fake", token 0 — để luồng chạy hết từ trước CP2 (guide bước 3.2).
     Lượt `run.py eval` / `run.py simulate` chạy bằng model giả KHÔNG được tính.
 
-Nối OpenAI hoặc DeepInfra: điền MODEL_PROVIDER, MODEL_NAME và API_KEY trong .env,
-hoặc cấp các biến môi trường tương ứng. Xem docs/connect-model.md.
+Nối model thật: điền .env (chép từ .env.example), rồi viết nhánh gọi API ở dưới theo docs/connect-model.md
+(có ví dụ OpenAI, Claude, model chạy trên máy, và cách nối nhà cung cấp khác). Không dán API key vào file này.
 """
 import json
 import os
@@ -44,20 +44,34 @@ load_env()
 MODEL_PROVIDER = (os.environ.get("MODEL_PROVIDER") or "fake").strip().lower()
 MODEL_NAME = (os.environ.get("MODEL_NAME") or "").strip()
 API_KEY = (os.environ.get("API_KEY") or "").strip()
-CHAT_ENDPOINTS = {
-    "openai": ("OpenAI", "https://api.openai.com/v1/chat/completions"),
-    "deepinfra": ("DeepInfra", "https://api.deepinfra.com/v1/openai/chat/completions"),
-}
+
+
+SHOW_RAW = False   # đổi thành True để in nguyên phản hồi của API khi cần tìm tên trường token
+
+
+def post_json(url, headers, body, timeout=60):
+    """Gửi POST JSON, trả về JSON phản hồi. Chỉ dùng thư viện chuẩn (urllib). Theo docs/connect-model.md mục 2."""
+    req = urllib.request.Request(
+        url, data=json.dumps(body).encode("utf-8"), method="POST",
+        headers=dict({"Content-Type": "application/json"}, **headers))
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            data = json.loads(r.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        e.close()
+        raise RuntimeError(f"HTTP {e.code}") from None
+    except (urllib.error.URLError, TimeoutError):
+        raise RuntimeError("Không kết nối được API model hoặc hết thời gian chờ.") from None
+    if SHOW_RAW:
+        print(json.dumps(data, ensure_ascii=False, indent=2)[:3000])
+    return data
 
 
 def require_live_config() -> None:
-    """Kiểm cấu hình gọi thật trước khi gửi câu hỏi."""
-    if MODEL_PROVIDER == "fake":
-        raise RuntimeError("Đang ở chế độ fake. Điền MODEL_PROVIDER, MODEL_NAME và API_KEY qua .env hoặc biến môi trường.")
-    if MODEL_PROVIDER not in CHAT_ENDPOINTS:
-        raise NotImplementedError("Nhánh API hỗ trợ MODEL_PROVIDER=openai hoặc deepinfra. Xem docs/connect-model.md.")
-    if not MODEL_NAME or not API_KEY:
-        raise RuntimeError("Cần điền MODEL_NAME và API_KEY qua .env hoặc biến môi trường.")
+    if MODEL_PROVIDER not in ("openai", "deepinfra", "anthropic", "gemini", "ollama"):
+        raise RuntimeError("Chọn MODEL_PROVIDER=openai / deepinfra / anthropic / gemini / ollama để gọi model thật.")
+    if not MODEL_NAME or (MODEL_PROVIDER != "ollama" and not API_KEY):
+        raise RuntimeError("Cần cấu hình MODEL_NAME và API_KEY cho nhà cung cấp đã chọn.")
 
 
 @model_call
@@ -65,36 +79,78 @@ def call_model(system: str, user: str) -> dict:
     if MODEL_PROVIDER == "fake":
         last = (user.strip().splitlines() or [""])[-1]
         return {"text": "[câu trả lời giả — chưa nối model] " + last[:60], "model": "fake", "tokens_in": 0, "tokens_out": 0}
-
     require_live_config()
-    provider, endpoint = CHAT_ENDPOINTS[MODEL_PROVIDER]
-    messages = [{"role": "system", "content": system}] if system else []
-    messages.append({"role": "user", "content": user})
-    request = urllib.request.Request(
-        endpoint,
-        data=json.dumps({"model": MODEL_NAME, "messages": messages}, ensure_ascii=False).encode("utf-8"),
-        headers={"Authorization": "Bearer " + API_KEY, "Content-Type": "application/json"},
-        method="POST",
-    )
-    try:
-        with urllib.request.urlopen(request, timeout=60) as response:
-            result = json.load(response)
-    except urllib.error.HTTPError as error:
-        error.close()
-        raise RuntimeError(f"{provider} HTTP {error.code}") from None
-    except (urllib.error.URLError, TimeoutError):
-        raise RuntimeError(f"Không kết nối được API {provider} hoặc hết thời gian chờ.") from None
-    except ValueError:
-        raise RuntimeError(f"API {provider} trả về phản hồi ngoài định dạng JSON.") from None
+    if MODEL_PROVIDER == "openai":
+        r = call_openai(system, user, URL_OPENAI)
+    elif MODEL_PROVIDER == "deepinfra":
+        r = call_openai(system, user, URL_DEEPINFRA)
+    elif MODEL_PROVIDER == "anthropic":
+        r = call_claude(system, user)
+    elif MODEL_PROVIDER == "ollama":
+        r = call_ollama(system, user)
+    else:
+        r = call_gemini(system, user)
+    return {"text": r["text"], "model": MODEL_NAME,
+            "tokens_in": int(r["tokens_in"]), "tokens_out": int(r["tokens_out"])}
 
+
+# --- OpenAI (và nhà cung cấp theo định dạng OpenAI: đổi URL_OPENAI qua biến môi trường MODEL_URL) ---
+URL_OPENAI = os.environ.get("MODEL_URL") or "https://api.openai.com/v1/chat/completions"
+URL_DEEPINFRA = "https://api.deepinfra.com/v1/openai/chat/completions"
+
+
+def call_openai(system, user, url):
+    messages = ([{"role": "system", "content": system}] if system else []) + [{"role": "user", "content": user}]
+    data = post_json(url, {"Authorization": "Bearer " + API_KEY},
+                     {"model": MODEL_NAME, "messages": messages})
     try:
-        usage = result["usage"]
-        tokens_in, tokens_out = usage["prompt_tokens"], usage["completion_tokens"]
-        text = result["choices"][0]["message"]["content"]
+        u = data["usage"]
+        text = data["choices"][0]["message"]["content"]
+        return {"text": text if text is not None else "",
+                "tokens_in": u["prompt_tokens"], "tokens_out": u["completion_tokens"]}
     except (KeyError, IndexError, TypeError):
-        raise RuntimeError(f"Phản hồi {provider} thiếu nội dung hoặc usage.") from None
-    if text is None:
-        text = ""  # Guardrail xử lý trường hợp model không cung cấp nội dung.
-    if not isinstance(text, str):
-        raise RuntimeError(f"Nội dung phản hồi {provider} phải là chuỗi.")
-    return {"text": text, "model": MODEL_NAME, "tokens_in": tokens_in, "tokens_out": tokens_out}
+        raise RuntimeError("Phản hồi model thiếu nội dung hoặc usage.") from None
+
+
+# --- Claude (Anthropic) ---
+URL_CLAUDE = "https://api.anthropic.com/v1/messages"
+
+
+def call_claude(system, user):
+    data = post_json(URL_CLAUDE,
+                     {"x-api-key": API_KEY, "anthropic-version": "2023-06-01"},
+                     {"model": MODEL_NAME, "max_tokens": 1024, "system": system or "",
+                      "messages": [{"role": "user", "content": user}]})
+    text = "".join(b.get("text", "") for b in data.get("content", []) if b.get("type") == "text")
+    u = data["usage"]
+    return {"text": text, "tokens_in": u["input_tokens"], "tokens_out": u["output_tokens"]}
+
+
+# --- Model chạy trên máy (Ollama) — rất chậm, chỉ để thử luồng ---
+URL_OLLAMA = "http://localhost:11434/api/chat"
+
+
+def call_ollama(system, user):
+    messages = ([{"role": "system", "content": system}] if system else []) + [{"role": "user", "content": user}]
+    data = post_json(URL_OLLAMA, {}, {"model": MODEL_NAME, "messages": messages, "stream": False}, timeout=300)
+    return {"text": data["message"]["content"],
+            "tokens_in": data.get("prompt_eval_count", 0), "tokens_out": data.get("eval_count", 0)}
+
+
+# --- Gemini (REST generateContent) — CHƯA THỬ VỚI KEY THẬT: lần đầu bật SHOW_RAW = True để kiểm tên trường token ---
+URL_GEMINI = "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent"
+
+
+def call_gemini(system, user):
+    body = {"contents": [{"role": "user", "parts": [{"text": user}]}]}
+    if system:
+        body["systemInstruction"] = {"parts": [{"text": system}]}
+    data = post_json(URL_GEMINI % MODEL_NAME, {"x-goog-api-key": API_KEY}, body)
+    parts = (data.get("candidates") or [{}])[0].get("content", {}).get("parts", [])
+    text = "".join(p.get("text", "") for p in parts if not p.get("thought"))
+    u = data.get("usageMetadata") or {}
+    if "promptTokenCount" not in u:
+        raise RuntimeError("Không thấy usageMetadata.promptTokenCount — bật SHOW_RAW = True để xem trường token, sửa call_gemini()")
+    # token suy nghĩ (thoughts) tính như token ra — further-reading/model-prices.md mục 3
+    return {"text": text, "tokens_in": u["promptTokenCount"],
+            "tokens_out": u.get("candidatesTokenCount", 0) + u.get("thoughtsTokenCount", 0)}
