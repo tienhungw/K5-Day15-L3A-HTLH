@@ -7,12 +7,16 @@ Track: [x] A · [ ] B · [ ] C · [ ] D · [ ] E — bài toán: A1 · Tutor cho
 Data BTC cấp đã dùng (nếu có — không commit nguyên file): `data/preclass` — `chat.csv`, `events.csv` (dòng `agent_replied`); chỉ số tổng hợp ở `evidence/data-mining.md`
 
 ## §0. Hiện tại việc này diễn ra thế nào *(guide 1.1)*
-- Luồng hiện tại trên trang pre-class (nguồn: `data/preclass/README.md`, `event_types.csv` của bộ đề; ảnh chụp từ tài khoản của nhóm: **chưa chụp**, Hưng bổ sung):
-  1. Học viên mở bài, xem video bài giảng (có câu hỏi bật lên giữa video).
-  2. Chưa hiểu thì gõ câu hỏi ở ô hỏi trợ giảng ngay dưới video (1.091 câu, 144 học viên, 05–25/11), hoặc bôi đen chữ trên slide rồi bấm hỏi (433 lượt `slide_text_asked`).
-  3. Trợ giảng trả lời sau khoảng 2,4 giây (trung vị; p90 4,6 giây). Câu trả lời có khi kèm mốc giây trong bài giảng (`moc_trich_dan`), có khi không: 231/557 câu (41,5%) không có mốc nào.
-  4. Học viên đọc câu trả lời, rồi hỏi tiếp, tua lại video, hoặc học tiếp. Data không cho biết họ có kiểm lại với bài hay không *(kiểm bằng phỏng vấn)*.
-- Công cụ / AI đang được dùng: trợ giảng AI dưới video của trang pre-class. Ngữ cảnh nó dùng có hai mức: chỉ đoạn quanh lúc hỏi (`hep`, 91 câu) hoặc lời giảng cả ngày (`ca_ngay`, 458 câu); 542 câu không ghi trường này. Tên model ghi chung là `model_chinh` / `fallback`. Cách chọn mốc trích dẫn bên trong: **chưa kiểm**.
+- Luồng hiện tại trên trang pre-class (nguồn: `data/preclass/README.md`, `event_types.csv` của bộ đề, và ảnh chụp từ tài khoản của nhóm ngày 27/11/2026):
+  1. Học viên mở bài, xem video bài giảng. Bài chia thành các phần có mốc thời gian (ví dụ Ngày 1 có 5 phần, video 21:51); câu hỏi quiz bật lên giữa video.
+  2. Chưa hiểu thì gõ câu hỏi vào khung "Tương tác lớp học → Trao đổi" bên phải video (1.091 câu, 144 học viên, 05–25/11), hoặc bôi đen chữ trên slide rồi bấm hỏi (433 lượt `slide_text_asked`).
+  3. Trợ giảng trả lời sau khoảng 2,4 giây (trung vị; p90 4,6 giây). Khi có trích dẫn, câu trả lời kèm các nút "Trong bài giảng ở **Phần 1 · 00:40**" để mở đúng mốc video (ảnh dưới). 231/557 câu trả lời (41,5%) không có mốc nào. Dưới ô nhập có dòng "Câu trả lời được grounding theo nội dung buổi học".
+  4. Học viên đọc câu trả lời, rồi hỏi tiếp, tua lại video, hoặc rời trang sang ChatGPT / Gemini / internet để kiểm (5/6 người được hỏi).
+
+  ![Trợ giảng dưới video: câu hỏi "Bài hôm nay có khó không?" và câu trả lời kèm mốc Phần 1 · 00:40, Phần 1 · 01:28](evidence/img/tro-giang-duoi-video.png)
+
+  *Ảnh chụp tài khoản của Nguyễn Tiến Hưng, 27/11/2026. Câu hỏi giống câu P1 kể đã hỏi. Ở lượt này trợ giảng có trích mốc, nhưng mốc 00:40 và 01:28 trỏ vào phần mở đầu, còn ý "năm phần, khoảng hai mươi phút" lấy từ cấu trúc bài: học viên không biết mốc nào đỡ cho câu nào.*
+- Công cụ / AI đang được dùng: trợ giảng AI ("Trợ giảng Snoop") trong khung Tương tác lớp học của trang pre-class. Ngữ cảnh nó dùng có hai mức: chỉ đoạn quanh lúc hỏi (`hep`, 91 câu) hoặc lời giảng cả ngày (`ca_ngay`, 458 câu); 542 câu không ghi trường này. Tên model ghi chung là `model_chinh` / `fallback`. Cách chọn mốc trích dẫn bên trong: **chưa kiểm**.
 
 ## §1. Người dùng & bằng chứng *(guide 1.1, 1.2)*
 - Người dùng chính (một vai cụ thể): học viên L3 khoá 5 tự xem video pre-class ở nhà (6/6 người được hỏi xem ở nhà; 3/6 nói rõ là buổi tối) và hỏi trợ giảng ngay dưới video khi chưa hiểu một ý.
@@ -58,7 +62,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): `data/prec
 
 > Mỗi người thử nhanh 1 sản phẩm, 10 phút. Dòng ghi "chưa kiểm" là chưa có người trong nhóm tự thử: thử xong thì sửa lại đúng điều thấy được.
 
-- **Trợ giảng dưới video hiện tại của trang pre-class** (chính là cách đang làm, theo data): đáng học: trả lời nhanh (trung vị 2,4 s) ngay tại chỗ, có lúc trích mốc giây trong bài · đáng né: 41,5% câu trả lời không trích mốc nào, học viên không biết câu trả lời dựa vào đâu · mình khác: **mọi** câu trả lời phải trỏ về mã đoạn có thật, không có đoạn căn cứ thì nói "không có trong bài" thay vì trả lời từ trí nhớ model.
+- **Trợ giảng dưới video hiện tại của trang pre-class** (chính là cách đang làm; data + ảnh §0): đáng học: trả lời nhanh (trung vị 2,4 s) ngay tại chỗ; khi có trích dẫn thì là nút bấm mở đúng mốc video, rất hợp để tự kiểm · đáng né: 41,5% câu trả lời không trích mốc nào; khi có mốc thì mốc gắn cả câu trả lời, không gắn từng ý, nên học viên không biết ý nào lấy từ đâu · mình khác: **mọi** câu trả lời phải trỏ về mã đoạn có thật, không có đoạn căn cứ thì nói "không có trong bài" thay vì trả lời từ trí nhớ model.
 - **NotebookLM (Google)**, trả lời dựa trên tài liệu người dùng tải lên, kèm số trích dẫn bấm vào mở đúng đoạn nguồn *(theo mô tả công khai của Google; nhóm **chưa kiểm**, Hưng thử 10 phút với 1 đoạn bài viết lại)*: đáng học: trích dẫn bấm được, người dùng tự kiểm ngay · đáng né: học viên phải tự tải tài liệu lên, rời khỏi video đang xem · mình khác: gắn sẵn vào video đang xem, nguồn là bài của khoá, trỏ về đúng đoạn trong video.
 - **ChatGPT / Gemini dùng riêng** (cách học viên đang làm thay: 5/6 người được hỏi sang ChatGPT, Gemini hoặc internet khi nghi câu trả lời): đáng học: trả lời được mọi câu · đáng né: không biết bài của khoá nói gì, không trỏ về đâu trong video, có thể trả lời lệch với cách giảng của khoá · mình khác: chỉ trả lời từ đoạn bài tra được.
 

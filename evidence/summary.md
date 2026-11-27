@@ -8,7 +8,7 @@
 | Nguồn | Đạt ngưỡng? | File |
 |---|---|---|
 | Đào data (x/N, %, cách đếm chạy lại được, ≥5 ví dụ) | ☑ x/N, script chạy lại được, 5 ví dụ | `evidence/data-mining.md` · `evidence/dao_data.py` |
-| Hỏi người dùng: 6 người, câu hỏi mở về chuyện đã xảy ra, **trả lời viết qua Google Form**, mỗi người 1 file | ☑ 6 người, mỗi người 1 file. *Giới hạn:* không có hỏi thêm; cần xác nhận cả 6 là học viên L3 ngoài nhóm | `evidence/interviews/P1.md` … `P6.md` · câu hỏi `KICH-BAN.md` |
+| Hỏi người dùng: 6 người, câu hỏi mở về chuyện đã xảy ra, **trả lời viết qua Google Form**, mỗi người 1 file | ☑ 6 học viên L3 ngoài nhóm (Hưng xác nhận 27/11), mỗi người 1 file. *Giới hạn:* trả lời viết, không có hỏi thêm | `evidence/interviews/P1.md` … `P6.md` · câu hỏi `KICH-BAN.md` |
 | Khảo sát ≥20 người | ☐ bộ câu hỏi đóng đã soạn, chưa gửi | `evidence/survey/questions.md` |
 
 ## 2. Số chính
@@ -28,12 +28,12 @@
 
 | | Vai | Gặp pain? | Số lần / 1 tháng qua | Lần gần nhất mất | Đang xoay xở bằng |
 |---|---|---|---|---|---|
-| P1 | học viên khoá 5 *(xác nhận L3)* | Có | 25 | không nêu | slide LMS, ChatGPT, tìm trên mạng |
-| P2 | học viên khoá 5 *(xác nhận L3)* | Không | 1 | không nêu | Gemini, câu hỏi mẫu trong khung chat |
-| P3 | học viên khoá 5 *(xác nhận L3)* | Có | "mỗi bài hơn chục lần" | 5–10 phút | đối chiếu bài giảng, hỏi bạn, ChatGPT |
-| P4 | học viên khoá 5 *(xác nhận L3)* | Có | khoảng 7 | 5–15 phút | xem lại video, internet, ChatGPT, Gemini |
-| P5 | học viên khoá 5 *(xác nhận L3)* | Một phần | 20 | không nêu | tìm trên mạng, hỏi bạn nhóm build phase |
-| P6 | học viên khoá 5 *(xác nhận L3)* | Một phần | không nêu | không nêu | hỏi AI khác |
+| P1 | học viên L3, ngoài nhóm | Có | 25 | không nêu | slide LMS, ChatGPT, tìm trên mạng |
+| P2 | học viên L3, ngoài nhóm | Không | 1 | không nêu | Gemini, câu hỏi mẫu trong khung chat |
+| P3 | học viên L3, ngoài nhóm | Có | "mỗi bài hơn chục lần" | 5–10 phút | đối chiếu bài giảng, hỏi bạn, ChatGPT |
+| P4 | học viên L3, ngoài nhóm | Có | khoảng 7 | 5–15 phút | xem lại video, internet, ChatGPT, Gemini |
+| P5 | học viên L3, ngoài nhóm | Một phần | 20 | không nêu | tìm trên mạng, hỏi bạn nhóm build phase |
+| P6 | học viên L3, ngoài nhóm | Một phần | không nêu | không nêu | hỏi AI khác |
 
 ## 3. ≥5 trích dẫn hoặc ví dụ nguyên văn (có nguồn, bỏ tên)
 
@@ -62,7 +62,6 @@ Giả thuyết ở `evidence/hypothesis.md`: **đúng một phần, phải chỉ
 - **Quyết định theo quy tắc ghi trước** ("giữ nếu ≥ một nửa số người kể được lần không chắc câu trả lời"): 5/6, nên **giữ lát cắt** trả lời kèm mã đoạn / "không có trong bài". Thêm vào lát cắt: **hỏi lại một câu khi câu hỏi chỉ trỏ "đoạn này" mà không rõ ý nào**.
 
 **Điều vẫn chưa biết:**
-- Cả 6 có đúng là học viên L3 ngoài nhóm không (cần xác nhận).
 - Có mã đoạn thì họ có mở ra kiểm thật không: không hỏi được bằng form, kiểm ở bước người dùng thử (guide 4.3).
 - Số phút mỗi lần mới có từ 2 người.
 
