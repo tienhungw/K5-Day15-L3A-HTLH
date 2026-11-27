@@ -200,7 +200,7 @@ Còn định nghĩa chính thức hoặc số liệu cụ thể (ví dụ giới
 | B11 | 1 | | |
 | B13 | 0 | | |
 
-**Khớp: __/5** · công cụ: **không chạy tay** — bản chạy thử thật trên `main` (`agent.py` + `search_lesson`), gọi model `zai-org/GLM-5.3` qua DeepInfra (B01, B06, B10 từ `python run.py eval --try 10`; B11 nhánh code không gọi model; B13 gọi `answer()`) · giờ chạy: 27/11/2026 ~18:30
+**Khớp: __/5** · công cụ: **không chạy tay** — bản chạy thử thật trên `main` commit `56a3799` (`agent.py` + `search_lesson`, trước khi merge guardrails của Hiệp), gọi model `zai-org/GLM-5.3` qua DeepInfra (B01, B06, B10 từ `python run.py eval --try 10`; B11 nhánh code không gọi model; B13 gọi `answer()`) · giờ chạy: 27/11/2026 ~18:30
 
 ### Ghi chú của Tuyên (đọc trước khi chấm B13)
 
