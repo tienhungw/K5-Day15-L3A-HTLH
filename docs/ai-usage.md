@@ -8,6 +8,7 @@ README của nhóm có mục "Dùng AI vào việc gì" (2–3 dòng, bắt bu�
 |---|---|---|---|---|
 | Code bản chạy thử | Codex | Viết bộ gate theo checkpoint, kiểm mã đoạn và trích dẫn, thêm nhánh gọi OpenAI. | Codex đã chạy bộ test cục bộ. Hiệp kiểm lại trên bài mẫu và chạy API thật. | Chử Văn Hiệp |
 | Prompt / thiết kế lời gọi mô hình | Codex | Viết prompt chọn một trong ba nhánh và trả trích đoạn dưới dạng JSON. | Hiệp và Liêm rà cách chọn đoạn và đầu ra ba nhánh trên bài mẫu. | Chử Văn Hiệp, Nguyễn Thanh Liêm |
+| Tích hợp và chuẩn bị mô phỏng (CP3) | Codex | Chạy `eval --try`, đối chiếu token và trích dẫn, điền cấu hình chi phí theo §2 và giá niêm yết DeepInfra. | Codex kiểm CSV, trace và cấu hình cục bộ. Hiệp rà lại trước khi bàn giao. | Chử Văn Hiệp |
 | Đào data (viết script đếm, gợi ý nhãn) | Claude Code | Viết `evidence/dao_data.py`, đề xuất cách đếm M1–M5 | Chạy lại script, đối chiếu tay __ dòng với `chat.csv` / `events.csv`, khớp __ | Nguyễn Tiến Hưng |
 | Sắp khung repo, nháp canvas / TEAMS (CP1) | Claude Code | Chép starter-repo ra thư mục gốc, nháp các dòng canvas | Cả nhóm đọc lại canvas, sửa lời cho đúng ý nhóm | Nguyễn Tiến Hưng |
 | Rà câu hỏi phỏng vấn / khảo sát | Claude Code | Soạn 7 câu hỏi mở về chuyện đã xảy ra; gắn nhãn 22 câu trả lời khảo sát (`evidence/survey/nhan.csv`) và viết `dem_khao_sat.py` | Đọc lại 22 dòng nhãn đối chiếu `results.csv`, sửa dòng gắn sai: __ dòng | Nguyễn Tiến Hưng |
