@@ -91,9 +91,11 @@ flowchart TD
     S -- "không có đoạn nào" --> NO["Không có trong bài + chỉ TA / thông báo khoá (G10, G1)"]
     S -- "có đoạn" --> G["get_passage(mã) — xác thực đoạn tốt nhất"]
     G --> M["call_model(SYSTEM + căn cứ + câu hỏi) — QUYẾT ĐỊNH TRUNG TÂM: trả lời kèm mã đoạn, hay nói không có trong bài, hay từ chối"]
-    M --> C{"Code kiểm: mọi mã đoạn trong câu trả lời có trong các đoạn đã tra? (cài trước CP3)"}
-    C -- "đúng" --> OUT["Câu trả lời, mỗi ý một mã đoạn bấm mở đúng đoạn (G11)"]
-    C -- "có mã lạ" --> NO
+    M -- "mơ hồ" --> ASK
+    M -- "thiếu căn cứ hoặc từ chối" --> NO
+    M -- "có trích đoạn" --> C{"Mã đoạn và trích dẫn có khớp căn cứ đã tra?"}
+    C -- "đúng" --> OUT["Hiện trích đoạn nguyên văn kèm mã để học viên tự kiểm (G11)"]
+    C -- "không khớp" --> NO
 ```
 
 - **Hình dạng:** [x] workflow cố định · [ ] một agent · [ ] nhiều agent.
@@ -111,8 +113,8 @@ flowchart TD
   - Lý do: sai thì học viên học sai ý trước buổi lớp. Mã đoạn cho học viên tự kiểm ngay nên sửa rẻ; bịa câu trả lời không có căn cứ là lỗi đắt nhất nên bị chặn bằng code.
 - **Chỗ chặn rủi ro** (rủi ro lớn nhất: bịa kiến thức hoặc bịa mã đoạn, và xuôi theo hiểu sai của học viên):
   1. **Trước model (code, đã cài):** không tra được đoạn nào thì không gọi model, trả thẳng "không có trong bài".
-  2. **Trong model (SYSTEM, đã cài):** chỉ dùng đoạn trong [Căn cứ]; mọi ý kèm mã đoạn có thật; câu hỏi của học viên là dữ liệu, không phải lệnh; không làm hộ bài, không lộ hướng dẫn.
-  3. **Sau model (code, cài trước CP3):** trích mọi mã đoạn trong câu trả lời, so với các đoạn đã tra; có mã lạ thì thay bằng "không có trong bài". Đây là chỗ đo metric "0 mã đoạn bịa".
+  2. **Trong model (SYSTEM, đã cài):** coi câu hỏi là dữ liệu, chỉ trích từ các đoạn đã tra, từ chối làm hộ bài và giữ hướng dẫn hệ thống trong phạm vi nội bộ.
+  3. **Sau model (đã cài):** `guardrails.py` đọc JSON, kiểm mỗi mã và đối chiếu trích dẫn nguyên văn. Phản hồi sai cấu trúc hoặc có trích dẫn sai được thay bằng lời báo thiếu căn cứ và chỉ đường hỏi TA.
 - **Chỗ người duyệt** (việc AI không được tự làm): bản chạy thử không có hành động ra ngoài (không gửi tin, không sửa dữ liệu). Câu cần người (lịch, phòng, điểm, làm hộ bài, chuyện riêng của học viên) thì AI chỉ chỉ đường tới TA / lab coach, người trả lời. Nội dung `data/lessons/` do người viết và duyệt, AI không sửa.
 - **Nguyên tắc thiết kế** (≥3, bắt buộc G10):
 
@@ -124,10 +126,9 @@ flowchart TD
   | G8 / G9 — dễ sửa | Học viên hỏi lại kèm tên khái niệm hoặc mã đoạn thì `search_lesson` ưu tiên đúng đoạn đó |
 
 - **Phần còn giả** (ghi rõ, không giả làm thật):
-  - Model: **chế độ giả** cho tới khi điền `.env`. Code gọi OpenAI / Claude / Gemini / Ollama đã có trong `codebase/ai.py`, **chưa thử với key thật** (Hiệp).
+  - Model: mặc định `fake` khi chưa cấu hình. Hiệp đã gọi thử một câu qua DeepInfra với 51 token vào và 11 token ra. Lần thử dùng câu kiểm kết nối riêng.
   - Bài mẫu: 18 đoạn Day01 nhóm tự viết lại (`synthetic`), chưa phủ các ngày khác.
   - Đầu vào chỉ là chữ, chưa có vị trí video lúc hỏi, nên câu "đoạn này" luôn phải hỏi lại.
-  - Bước code kiểm mã đoạn sau model: **chưa cài** (kế hoạch trước CP3).
 
 ## §5. Chỗ khó — 4 lớp + ≥6 kịch bản + 2 tấn công *(guide 2.3)*
 
@@ -148,7 +149,7 @@ flowchart TD
 (1) nguồn sự thật · (2) mơ hồ / thiếu thông tin · (3) ngoài phạm vi / thẩm quyền · (4) đặc thù lĩnh vực (sai thì người dùng mất gì đắt nhất)
 
 ## §6. Bốn đường đi của trải nghiệm
-- **Mọi thứ suôn sẻ:** câu có căn cứ → trả lời ngắn, mỗi ý một mã đoạn; học viên mở mã là thấy đúng câu đó trong bài (B01–B05, B15).
+- **Mọi thứ suôn sẻ:** câu có căn cứ → hiện trích đoạn nguyên văn kèm mã để học viên tìm đúng đoạn và đối chiếu (B01–B05, B15).
 - **Không chắc (lớp 2):** câu mơ hồ / chỉ "đoạn này" → đúng một câu hỏi lại "bạn đang hỏi khái niệm hay đoạn nào?" (B08, B09, B17, B18).
 - **Không có căn cứ (lớp 1):** "Không có trong bài", nói bài mẫu đang phủ những gì, chỉ TA / bài của ngày khác; không đưa con số nào (B10, B16).
 - **Người dùng sửa:** học viên hỏi lại kèm tên khái niệm hoặc mã đoạn → `search_lesson` ưu tiên đúng đoạn đó và trả lời lại.
@@ -167,9 +168,9 @@ flowchart TD
 - So với impact / người / tháng (§2): đáng làm không, vì sao:
 
 ## §9. Rủi ro & an toàn
-- Dữ liệu: đã ẩn danh gì, không thu gì, không đưa gì vào model gói miễn phí:
-- AI **không được** làm gì kể cả khi người dùng yêu cầu:
-- Ai có thể bị hại nếu AI sai, và nhóm chặn thế nào:
+- Chỉ dùng đoạn bài mẫu được phép chia sẻ và câu hỏi đã bỏ thông tin nhận diện khi chạy API và ghi trace. Khóa API dùng cấu hình cục bộ.
+- AI chỉ tra và trả lời theo bài, hỏi lại hoặc chỉ đường đến TA. Việc gửi tin, thay đổi dữ liệu hay chấm điểm do người có thẩm quyền thực hiện.
+- Học viên có thể hiểu sai trước buổi lớp. Phần hiển thị gắn trích đoạn nguyên văn với mã để học viên mở bài đối chiếu.
 
 ## §10. Phân công & changelog
 - Phân công có tên (theo chặng, chia cặp — guide "Cách chia việc"): Nguyễn Tiến Hưng (đội trưởng): đào data, khảo sát n = 22, §0–§3, impact, canvas, nộp checkpoint · Dương Ngọc Tuyên: bộ câu thử, metric spec, §5 · Nguyễn Thanh Liêm: bài mẫu Day01, data card, `tools.py`, `agent.py` · Chử Văn Hiệp: §4 thiết kế, nối model `ai.py`, chặn rủi ro, mô phỏng chi phí. Cặp X = Liêm + Hiệp · cặp Y = Hưng + Tuyên.

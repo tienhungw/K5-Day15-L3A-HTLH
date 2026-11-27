@@ -58,10 +58,20 @@ def post_json(url, headers, body, timeout=60):
         with urllib.request.urlopen(req, timeout=timeout) as r:
             data = json.loads(r.read().decode("utf-8"))
     except urllib.error.HTTPError as e:
-        raise RuntimeError("HTTP %d: %s" % (e.code, e.read().decode("utf-8", "replace")[:300]))
+        e.close()
+        raise RuntimeError(f"HTTP {e.code}") from None
+    except (urllib.error.URLError, TimeoutError):
+        raise RuntimeError("Không kết nối được API model hoặc hết thời gian chờ.") from None
     if SHOW_RAW:
         print(json.dumps(data, ensure_ascii=False, indent=2)[:3000])
     return data
+
+
+def require_live_config() -> None:
+    if MODEL_PROVIDER not in ("openai", "deepinfra", "anthropic", "gemini", "ollama"):
+        raise RuntimeError("Chọn MODEL_PROVIDER=openai / deepinfra / anthropic / gemini / ollama để gọi model thật.")
+    if not MODEL_NAME or (MODEL_PROVIDER != "ollama" and not API_KEY):
+        raise RuntimeError("Cần cấu hình MODEL_NAME và API_KEY cho nhà cung cấp đã chọn.")
 
 
 @model_call
@@ -69,33 +79,37 @@ def call_model(system: str, user: str) -> dict:
     if MODEL_PROVIDER == "fake":
         last = (user.strip().splitlines() or [""])[-1]
         return {"text": "[câu trả lời giả — chưa nối model] " + last[:60], "model": "fake", "tokens_in": 0, "tokens_out": 0}
-    if not MODEL_NAME:
-        raise RuntimeError("Thiếu MODEL_NAME trong .env (mã gọi API của model, đúng như tài liệu nhà cung cấp)")
+    require_live_config()
     if MODEL_PROVIDER == "openai":
-        r = call_openai(system, user)
+        r = call_openai(system, user, URL_OPENAI)
+    elif MODEL_PROVIDER == "deepinfra":
+        r = call_openai(system, user, URL_DEEPINFRA)
     elif MODEL_PROVIDER == "anthropic":
         r = call_claude(system, user)
     elif MODEL_PROVIDER == "ollama":
         r = call_ollama(system, user)
-    elif MODEL_PROVIDER == "gemini":
-        r = call_gemini(system, user)
     else:
-        raise RuntimeError("MODEL_PROVIDER=%s chưa hỗ trợ: dùng openai / anthropic / gemini / ollama / fake" % MODEL_PROVIDER)
+        r = call_gemini(system, user)
     return {"text": r["text"], "model": MODEL_NAME,
             "tokens_in": int(r["tokens_in"]), "tokens_out": int(r["tokens_out"])}
 
 
 # --- OpenAI (và nhà cung cấp theo định dạng OpenAI: đổi URL_OPENAI qua biến môi trường MODEL_URL) ---
 URL_OPENAI = os.environ.get("MODEL_URL") or "https://api.openai.com/v1/chat/completions"
+URL_DEEPINFRA = "https://api.deepinfra.com/v1/openai/chat/completions"
 
 
-def call_openai(system, user):
+def call_openai(system, user, url):
     messages = ([{"role": "system", "content": system}] if system else []) + [{"role": "user", "content": user}]
-    data = post_json(URL_OPENAI, {"Authorization": "Bearer " + API_KEY},
+    data = post_json(url, {"Authorization": "Bearer " + API_KEY},
                      {"model": MODEL_NAME, "messages": messages})
-    u = data["usage"]
-    return {"text": data["choices"][0]["message"]["content"],
-            "tokens_in": u["prompt_tokens"], "tokens_out": u["completion_tokens"]}
+    try:
+        u = data["usage"]
+        text = data["choices"][0]["message"]["content"]
+        return {"text": text if text is not None else "",
+                "tokens_in": u["prompt_tokens"], "tokens_out": u["completion_tokens"]}
+    except (KeyError, IndexError, TypeError):
+        raise RuntimeError("Phản hồi model thiếu nội dung hoặc usage.") from None
 
 
 # --- Claude (Anthropic) ---
