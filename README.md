@@ -91,8 +91,9 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 
 | Thành phần | Thật / Giả | Ghi chú |
 |---|---|---|
-| Lời gọi AI ở quyết định trung tâm | **Giả** ở CP1 (chế độ `fake` của khung) · **Thật** bắt buộc từ CP3 | Model: chưa chọn (chốt trước CP3) |
-| Công cụ tra đoạn bài (`codebase/tools.py`) | **Giả** ở CP1 (công cụ ví dụ của khung) | Viết trước CP2 trên bài mẫu có mã đoạn nhóm tự dựng |
+| Lời gọi AI ở quyết định trung tâm | **Giả** ở CP2 (chế độ `fake`) · **Thật** bắt buộc từ CP3 | Code gọi OpenAI / Claude / Gemini / Ollama đã có trong `codebase/ai.py`; chọn model và điền `.env` trước CP3 |
+| Công cụ tra đoạn bài (`search_lesson`, `get_passage`) | **Thật** — đọc `data/lessons/` | Bài mẫu là 18 đoạn Day01 nhóm tự viết lại (`synthetic`), không phải transcript của khoá |
+| Kiểm mã đoạn sau khi model trả lời | **Chưa cài** | Kế hoạch trước CP3 (`spec.md` §4, chỗ chặn rủi ro 3) |
 
 ## Dùng AI vào việc gì
 
