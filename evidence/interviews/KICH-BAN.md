@@ -1,15 +1,13 @@
-# Kịch bản phỏng vấn CP2 — dùng chung cho P1–P4
+# Kịch bản phỏng vấn CP2 — dùng chung cho mọi người được hỏi
 
-> Mỗi thành viên hỏi **1 học viên L3 ngoài nhóm** (bạn nhóm khác trong lớp được tính), 10–15 phút, ghi vào `P1.md` … `P4.md`.
+> Hỏi **học viên L3 ngoài nhóm** (bạn nhóm khác trong lớp được tính), 10–15 phút, mỗi người một file `P<số>.md`.
 > Hỏi chuyện **đã xảy ra trong 1 tháng qua**. Không giới thiệu ý tưởng của nhóm, không hỏi "bạn có muốn tính năng X không".
 > Không ghi tên, SĐT, email, mã học viên. Không ghi âm nếu chưa xin phép.
 
-| Người hỏi | File | Giờ |
+| Người hỏi | File | Hình thức · giờ |
 |---|---|---|
-| Nguyễn Tiến Hưng | `P1.md` | 17:00–17:45 |
-| Dương Ngọc Tuyên | `P2.md` | 17:00–17:45 |
-| Nguyễn Thanh Liêm | `P3.md` | 17:00–17:45 |
-| Chử Văn Hiệp | `P4.md` | 17:00–17:45 |
+| Nguyễn Tiến Hưng | `P1.md` … `P6.md` | Google Form 7 câu hỏi mở, 27/11 — **đã xong** |
+| Dương Ngọc Tuyên / Nguyễn Thanh Liêm / Chử Văn Hiệp | `P7.md` … *(tuỳ chọn)* | hỏi trực tiếp 5–10 phút, có hỏi thêm; nên làm 1–2 cuộc trước CP3 để bù giới hạn "không có hỏi thêm" của form |
 
 **Tin nhắn hẹn:** *"Chào bạn, nhóm mình đang tìm hiểu cách mọi người tự học video pre-class trong khoá. Bạn cho mình hỏi 10 phút về lần gần nhất bạn xem video pre-class được không? Không giới thiệu sản phẩm gì cả."*
 
