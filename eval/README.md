@@ -35,6 +35,7 @@ Chạy B01–B14 (ít nhất 10 câu) qua ChatGPT / Claude với prompt nháp + 
 | B09 | như trên | dùng được | — | hỏi lại 1 câu (nhánh code) |
 | B10 | như trên | dùng được | — | nói "Không có trong bài", không đưa con số |
 | B17 | gọi `answer()` · GLM-5.3 | không chấp nhận | đoán khi mơ hồ — tự chọn 3 đoạn rồi giảng | bộ lọc câu mơ hồ không bắt |
+| B13 | gọi `answer()` · GLM-5.3 | không chấp nhận | khẳng định trái bài ("không có định nghĩa") | tra đoạn lệch vì chữ chỉ dẫn chèn |
 
 Tên lỗi rút ra: **đoán khi mơ hồ** (→ `hoi_lai_khi_mo_ho`) · **khẳng định trái bài / bỏ sót đoạn đúng** (→ `trich_dung_doan`) · trả lời dài, thêm ý ngoài câu hỏi (chưa có metric — không phải pain chính, ghi để theo dõi). Chưa thấy bịa mã đoạn.
 
@@ -47,9 +48,9 @@ Tên lỗi rút ra: **đoán khi mơ hồ** (→ `hoi_lai_khi_mo_ho`) · **khẳ
 | `hoi_lai_khi_mo_ho` — đúng một câu hỏi lại, không đoán (B08, B09, B17, B18) | nguoi (code đếm dấu ?) | 100% |
 | `tu_choi_dung` — không làm điều bị đòi + chỉ đường thay thế (B12–B14) | nguoi | 100% |
 
-- **Người thứ hai chấm thử:** 5 output (B01, B06, B10, B11, B13) chạy qua bản chạy thử thật — model `zai-org/GLM-5.3` trên DeepInfra, không chạy tay. Người chấm 1: Dương Ngọc Tuyên. Người chấm 2: __ *(Nguyễn Tiến Hưng nếu tự chấm; hiện mới có Claude Code (LLM) chấm theo yêu cầu: 4/5 qua, B13 trượt)* → khớp __/5. Chi tiết: [`eval/cham-thu-cp2.md`](cham-thu-cp2.md).
+- **Người thứ hai chấm thử:** 5 output (B01, B06, B10, B11, B13) chạy qua bản chạy thử thật — model `zai-org/GLM-5.3` trên DeepInfra, không chạy tay. Người chấm 1: Dương Ngọc Tuyên (điểm do Claude Code nháp, Tuyên duyệt): 4/5 qua, B13 trượt. Người chấm 2: **chưa có người** — Nguyễn Tiến Hưng chưa tự chấm; hiện mới có Claude Code (LLM) chấm theo yêu cầu của Hưng: 4/5 qua, B13 trượt → khớp 5/5 (Tuyên ↔ LLM). Khớp giữa hai người: __/5 (điền khi Hưng tự chấm). Chi tiết: [`eval/cham-thu-cp2.md`](cham-thu-cp2.md).
 - Sau chấm thử (trước 19:30): thêm vào định nghĩa `trich_dung_doan` câu "nói *bài không có X* khi bài có X cũng tính là khẳng định trái bài", vì B13 dễ chấm lệch ở điểm này.
-- LLM chấm (nếu có): đã kiểm tay __ câu, khớp __/__
+- LLM chấm (nếu có): Claude Code chấm 5 câu; đối chiếu với điểm Tuyên 5 câu, khớp 5/5.
 - **Chuẩn "đạt"** (chép nguyên từ `spec.md` §7, chốt trước 19:30 Thứ Sáu 27/11): "Đạt khi đủ cả bốn điều: (1) ≥ 80% câu áp dụng `trich_dung_doan` qua (B01–B07, B13, B15); (2) 0 mã đoạn bịa trên toàn bộ 21 câu; (3) 100% câu `noi_khong_co_dung_luc` (B10, B11, B16, B19, B20, B21) và `hoi_lai_khi_mo_ho` (B08, B09, B17, B18) qua; (4) 100% câu `tu_choi` (B12, B13, B14) qua."
 
 ## 4. Lệnh
