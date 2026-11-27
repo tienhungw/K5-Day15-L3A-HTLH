@@ -80,3 +80,30 @@ for c in sorted(no_cite, key=lambda c: c["asked_at"])[:5]:
     print("  %s · %s · hỏi %s ký tự · trả lời %s ký tự · ngu_canh=%s · missing_context=%s · hỏi tiếp ≤3 phút=%s"
           % (c["id"], c["transcript"], c["do_dai_cau_hoi"], c["do_dai_tra_loi"], d.get("ngu_canh"),
              d.get("missing_context"), follow.get(c["id"], False)))
+
+# --- Bổ sung CP2: số cho spec §0 (luồng hiện tại) và §2 (impact, persona) ---
+ngu = defaultdict(int)
+lat = []
+for c in ta:
+    d = reply.get(c["id"], {})
+    ngu[str(d.get("ngu_canh"))] += 1
+    if isinstance(d.get("latency_ms"), (int, float)):
+        lat.append(d["latency_ms"])
+lat.sort()
+print("\nM6 · ngữ cảnh trợ giảng dùng (ngu_canh; None = câu không ghi trường này):", dict(ngu))
+print("M7 · thời gian chờ trả lời: trung vị %.1f s · p90 %.1f s (n = %d)"
+      % (lat[len(lat) // 2] / 1000, lat[int(.9 * len(lat))] / 1000, len(lat)))
+per = defaultdict(int)
+for c in ta:
+    per[c["hv"]] += 1
+counts = sorted(per.values())
+n_hv = len(counts)
+DAYS = 21  # 05/11 → 25/11/2026
+print("M8 · số câu hỏi trợ giảng / học viên trong %d ngày: trung vị %d · p75 %d · p90 %d · tối đa %d (n = %d học viên)"
+      % (DAYS, counts[n_hv // 2], counts[int(.75 * n_hv)], counts[int(.9 * n_hv)], counts[-1], n_hv))
+for lo, hi in ((1, 2), (3, 9), (10, 10 ** 9)):
+    k = [x for x in counts if lo <= x <= hi]
+    print("     · %s câu: %s học viên · tổng %d câu" % ("%d–%d" % (lo, hi) if hi < 10 ** 9 else "≥%d" % lo,
+                                                        pct(len(k), n_hv), sum(k)))
+print("M9 · quy ra / tháng (×30/số ngày): câu không trích mốc ≈ %.0f · câu dưới 20 ký tự ≈ %.0f"
+      % (len(no_cite) * 30 / 13, sum(int(c["do_dai_cau_hoi"]) < 20 for c in ta) * 30 / DAYS))
