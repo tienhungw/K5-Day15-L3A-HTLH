@@ -91,9 +91,9 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 
 | Thành phần | Thật / Giả | Ghi chú |
 |---|---|---|
-| Lời gọi AI ở quyết định trung tâm | **Giả** ở CP2 (chế độ `fake`) · **Thật** bắt buộc từ CP3 | Code gọi OpenAI / Claude / Gemini / Ollama đã có trong `codebase/ai.py`; chọn model và điền `.env` trước CP3 |
+| Lời gọi AI ở quyết định trung tâm | Mặc định **giả** (`fake`) khi chưa có `.env` · Hiệp đã gọi thật 1 câu kiểm kết nối qua DeepInfra (51 token vào / 11 ra) · lượt `eval` thật: trước CP3 | Nhánh openai / deepinfra / anthropic / gemini / ollama trong `codebase/ai.py`; model: __ (Hiệp ghi) |
 | Công cụ tra đoạn bài (`search_lesson`, `get_passage`) | **Thật** — đọc `data/lessons/` | Bài mẫu là 18 đoạn Day01 nhóm tự viết lại (`synthetic`), không phải transcript của khoá |
-| Kiểm mã đoạn sau khi model trả lời | **Chưa cài** | Kế hoạch trước CP3 (`spec.md` §4, chỗ chặn rủi ro 3) |
+| Kiểm mã đoạn và trích dẫn sau khi model trả lời | **Thật** — `codebase/guardrails.py` | Model trả JSON; mỗi trích dẫn phải có nguyên văn trong đoạn đã tra, sai thì thay bằng câu báo thiếu căn cứ |
 
 ## Dùng AI vào việc gì
 

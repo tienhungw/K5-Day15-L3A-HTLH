@@ -121,8 +121,8 @@ flowchart TD
   | Nguyên tắc | Chỗ cụ thể trên sơ đồ / trong bản chạy thử |
   |---|---|
   | G10 — thu hẹp phạm vi khi không chắc | Nút "Code: câu quá ngắn" → hỏi lại 1 câu (`_is_too_vague` trong `agent.py`); nhánh "không có đoạn nào" → "Không có trong bài" |
-  | G1 / G2 — nói rõ làm được gì, làm tốt đến đâu | Câu "Không có trong bài học mẫu hiện có (Day01). Mình chỉ trả lời các nội dung có trong bài giảng…" trong `agent.py` |
-  | G11 — giải thích vì sao | Mỗi ý kèm mã đoạn `[D01-V0x-0y]`; học viên mở đúng đoạn đó để tự kiểm (nút OUT) |
+  | G1 / G2 — nói rõ làm được gì, làm tốt đến đâu | Câu cố định `HANDOFF` / `NO_SUPPORT` trong `guardrails.py`: "Ý này không có trong bài…", "Mình chưa có đủ căn cứ từ bài để trả lời…" kèm chỉ chỗ hỏi TA |
+  | G11 — giải thích vì sao | Câu trả lời là trích đoạn nguyên văn kèm mã `[D01-V0x-0y]` (`render_reply` trong `guardrails.py`); học viên mở đúng đoạn đó để đối chiếu (nút OUT) |
   | G8 / G9 — dễ sửa | Học viên hỏi lại kèm tên khái niệm hoặc mã đoạn thì `search_lesson` ưu tiên đúng đoạn đó |
 
 - **Phần còn giả** (ghi rõ, không giả làm thật):
