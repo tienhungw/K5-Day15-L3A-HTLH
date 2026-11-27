@@ -91,7 +91,7 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 
 | Thành phần | Thật / Giả | Ghi chú |
 |---|---|---|
-| Lời gọi AI ở quyết định trung tâm | Mặc định **giả** (`fake`) khi chưa có `.env` · Hiệp đã gọi thật 1 câu kiểm kết nối qua DeepInfra (51 token vào / 11 ra) · lượt `eval` thật: trước CP3 | Nhánh openai / deepinfra / anthropic / gemini / ollama trong `codebase/ai.py`; model: __ (Hiệp ghi) |
+| Lời gọi AI ở quyết định trung tâm | Mặc định `fake` khi chưa cấu hình · `eval --try` qua DeepInfra có token API đo được ở cả 3 câu | Model CP3: `deepseek-ai/DeepSeek-V4.1-Flash-1017` · cấu hình trong `codebase/ai.py` |
 | Công cụ tra đoạn bài (`search_lesson`, `get_passage`) | **Thật** — đọc `data/lessons/` | Bài mẫu là 18 đoạn Day01 nhóm tự viết lại (`synthetic`), không phải transcript của khoá |
 | Kiểm mã đoạn và trích dẫn sau khi model trả lời | **Thật** — `codebase/guardrails.py` | Model trả JSON; mỗi trích dẫn phải có nguyên văn trong đoạn đã tra, sai thì thay bằng câu báo thiếu căn cứ |
 

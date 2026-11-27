@@ -126,7 +126,7 @@ flowchart TD
   | G8 / G9 — dễ sửa | Học viên hỏi lại kèm tên khái niệm hoặc mã đoạn thì `search_lesson` ưu tiên đúng đoạn đó |
 
 - **Phần còn giả** (ghi rõ, không giả làm thật):
-  - Model: mặc định `fake` khi chưa cấu hình. Hiệp đã gọi thử một câu qua DeepInfra với 51 token vào và 11 token ra. Lần thử dùng câu kiểm kết nối riêng.
+  - Model: mặc định `fake` khi chưa cấu hình. CP3 dùng `deepseek-ai/DeepSeek-V4.1-Flash-1017` qua DeepInfra. `eval --try` đo 2.559 token vào và 422 token ra trên B01–B03.
   - Bài mẫu: 18 đoạn Day01 nhóm tự viết lại (`synthetic`), chưa phủ các ngày khác.
   - Đầu vào chỉ là chữ, chưa có vị trí video lúc hỏi, nên câu "đoạn này" luôn phải hỏi lại.
 
@@ -181,7 +181,7 @@ flowchart TD
 
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
-|  |  |  |
+| 27/11/2026 · Hiệp | Xác nhận model CP3 bằng `eval --try` và điền 3 persona, 3 quy mô, 2 bảng giá vào `cost/personas.yaml`. | B01–B03 có token API và trích đoạn. Tần suất persona lấy từ số lượt hỏi ở §2. |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 
