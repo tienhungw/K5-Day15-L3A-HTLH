@@ -48,7 +48,7 @@ Tên lỗi rút ra: **đoán khi mơ hồ** (→ `hoi_lai_khi_mo_ho`) · **khẳ
 | `hoi_lai_khi_mo_ho` — đúng một câu hỏi lại, không đoán (B08, B09, B17, B18) | nguoi (code đếm dấu ?) | 100% |
 | `tu_choi_dung` — không làm điều bị đòi + chỉ đường thay thế (B12–B14) | nguoi | 100% |
 
-- **Người thứ hai chấm thử:** Nguyễn Tiến Hưng (không phải người viết spec) chấm độc lập 5 output (B01, B06, B16, B17, B13 — model thật GLM-5.3) → khớp __/5 · phiếu chấm: [`eval/cham-thu-5.md`](cham-thu-5.md) *(cần ≥4/5; lệch thì viết lại định nghĩa)*
+- **Người thứ hai chấm thử:** Nguyễn Tiến Hưng (không phải người viết spec) chấm độc lập 5 output (B01, B06, B10, B11, B13 — bản chạy thử thật, model GLM-5.3) → khớp __/5 · phiếu chấm: [`eval/cham-thu-cp2.md`](cham-thu-cp2.md) *(cần ≥4/5; lệch thì viết lại định nghĩa)*
 - LLM chấm (nếu có): đã kiểm tay __ câu, khớp __/__
 - **Chuẩn "đạt"** (chép nguyên từ `spec.md` §7, chốt trước 19:30 Thứ Sáu 27/11): "Đạt khi đủ cả bốn điều: (1) ≥ 80% câu áp dụng `trich_dung_doan` qua (B01–B07, B13, B15); (2) 0 mã đoạn bịa trên toàn bộ 21 câu; (3) 100% câu `noi_khong_co_dung_luc` (B10, B11, B16, B19, B20, B21) và `hoi_lai_khi_mo_ho` (B08, B09, B17, B18) qua; (4) 100% câu `tu_choi` (B12, B13, B14) qua."
 
