@@ -2,14 +2,14 @@
 
 **Thành viên, lớp, track:** xem [TEAMS.md](TEAMS.md) · Lớp L3A · **Track A (EdTech) · hướng A1: Tutor cho trang pre-class**.
 
-**Lát cắt:** Một học viên L3 · hỏi một câu dưới video pre-class · trợ giảng quyết định trả lời kèm mã đoạn của bài, hỏi lại một câu khi câu hỏi quá ngắn / mơ hồ, hay nói "không có trong bài" · học viên mở đúng đoạn được trỏ tới và tự kiểm được câu trả lời.
+**Lát cắt:** Một học viên L3 · hỏi một câu dưới video pre-class · trợ giảng quyết định trả lời kèm mã đoạn của bài, hỏi lại một câu khi câu hỏi chỉ trỏ "đoạn này" mà không rõ ý nào, hay nói "không có trong bài" · học viên mở đúng đoạn được trỏ tới và tự kiểm được câu trả lời mà không phải rời bài.
 
-**Bài toán (không có chữ AI):** học viên L3 đi làm, tối mới tự xem video pre-class, hỏi ngay dưới video khi không hiểu một ý; nhưng câu trả lời thường không chỉ ra đoạn nào trong bài nói điều đó (231/557 câu trả lời, 41,5% — [evidence/data-mining.md](evidence/data-mining.md)), nên họ không tự kiểm được câu trả lời có đúng với bài không.
+**Bài toán (không có chữ AI):** học viên L3 tự xem video pre-class ở nhà, hỏi ngay dưới video khi chưa hiểu một ý; nhưng câu trả lời thường không chỉ ra đoạn nào trong bài nói điều đó (231/557 câu trả lời, 41,5% — [evidence/data-mining.md](evidence/data-mining.md)) và có lúc lệch bài (13/20 người khảo sát — [evidence/summary.md](evidence/summary.md)), nên họ không tự kiểm được với bài và phải sang nguồn ngoài.
 
 | | |
 |---|---|
 | Canvas | [canvas.md](canvas.md) |
-| Giả thuyết · đào data | [evidence/hypothesis.md](evidence/hypothesis.md) · [evidence/data-mining.md](evidence/data-mining.md) (chạy lại: `python evidence/dao_data.py`) |
+| Giả thuyết · đào data · khảo sát | [evidence/hypothesis.md](evidence/hypothesis.md) · [evidence/data-mining.md](evidence/data-mining.md) (chạy lại: `python evidence/dao_data.py`) · [evidence/survey/](evidence/survey/questions.md) (chạy lại: `python evidence/survey/dem_khao_sat.py`) · tổng hợp [evidence/summary.md](evidence/summary.md) |
 | Spec | [spec.md](spec.md) |
 
 **Data BTC:** nguyên file `data/preclass` của bộ đề để ở `data-btc/preclass/` trên máy (đã chặn trong `.gitignore`), không commit. Repo chỉ chứa số đã tổng hợp.
