@@ -44,6 +44,7 @@ load_env()
 MODEL_PROVIDER = (os.environ.get("MODEL_PROVIDER") or "fake").strip().lower()
 MODEL_NAME = (os.environ.get("MODEL_NAME") or "").strip()
 API_KEY = (os.environ.get("API_KEY") or "").strip()
+MODEL_TEMPERATURE = float(os.environ.get("MODEL_TEMPERATURE") or "0")
 
 
 SHOW_RAW = False   # đổi thành True để in nguyên phản hồi của API khi cần tìm tên trường token
@@ -102,7 +103,7 @@ URL_DEEPINFRA = "https://api.deepinfra.com/v1/openai/chat/completions"
 def call_openai(system, user, url):
     messages = ([{"role": "system", "content": system}] if system else []) + [{"role": "user", "content": user}]
     data = post_json(url, {"Authorization": "Bearer " + API_KEY},
-                     {"model": MODEL_NAME, "messages": messages})
+                     {"model": MODEL_NAME, "messages": messages, "temperature": MODEL_TEMPERATURE})
     try:
         u = data["usage"]
         text = data["choices"][0]["message"]["content"]
