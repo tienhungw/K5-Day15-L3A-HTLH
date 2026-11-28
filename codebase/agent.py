@@ -4,7 +4,7 @@ import json
 import re
 
 from ai import call_model
-from guardrails import CLARIFY, HANDOFF, NO_SUPPORT, REFUSE_OVERRIDE, SYSTEM, render_reply
+from guardrails import CLARIFY, HANDOFF, HOMEWORK, NO_SUPPORT, REFUSE_OVERRIDE, SYSTEM, render_reply
 from tools import _fold, _keywords, get_passage, search_lesson
 from tracing import note
 
@@ -30,9 +30,28 @@ _OVERRIDE_RES = [
     re.compile(r"\b(bo qua|quen|phot lo|ignore)\b.*\b(huong dan|quy tac|chi dan|yeu cau|instruction)"),
     re.compile(r"\bkien thuc rieng\b"),
     re.compile(r"\bkhong can (trich|dua vao|dung) (bai|nguon|doan)"),
-    re.compile(r"\b(huong dan he thong|system prompt)\b"),
+    re.compile(
+        r"\b(?:cho (?:(?:minh|toi|em) )?(?:xem|doc|xin)|xin|in(?: ra)?|hien thi|tiet lo|"
+        r"cung cap|chia se|gui(?: (?:cho )?(?:minh|toi|em))?|show(?: me)?|send(?: me)?|reveal|print|give me) "
+        r"(?:(?:nguyen(?: van)?|toan bo|noi dung|your|the) )*(?:huong dan he thong|system prompt)\b"
+        r"|\b(?:huong dan he thong|system prompt) cua (?:ban|tro giang|he thong nay)\b"
+        r"|\byour system prompt\b"
+    ),
 ]
 _SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?;\n])\s+")
+
+# Chỉ bắt câu đánh giá cả bài, kể cả khi câu dùng tên chung "video/buổi học/chương".
+# Câu hỏi về độ khó của một thao tác hay khái niệm vẫn được tra theo bài.
+_LESSON_SUBJECT = r"(?:bai(?: hoc)?|video|buoi hoc|chuong|khoa hoc)(?: (?:nay|do|kia|hom nay|tiep theo))?"
+_LESSON_DIFFICULTY_RE = re.compile(
+    rf"(?:{_LESSON_SUBJECT} (?:co )?(?:kho|de)(?: khong| lam khong| den muc nao| the nao)?"
+    rf"|(?:do kho|muc do kho) cua {_LESSON_SUBJECT}(?: the nao| ra sao| la bao nhieu)?)"
+    r"[\s?.!]*"
+)
+_HOMEWORK_REQUEST_RE = re.compile(
+    r"^(?:(?:hay|vui long) )?(?:lam|giai|viet) ho (?:(?:minh|toi|em) )?"
+    r"(?:bai (?:tap|lab|mini lab|kiem tra|nop)|mini lab)\b"
+)
 
 
 def _is_too_vague(query: str) -> bool:
@@ -57,7 +76,8 @@ def _strip_override(query: str) -> tuple[str, int]:
     """Bỏ các câu chèn lệnh khỏi câu hỏi, giữ phần hỏi thật. Trả (phần còn lại, số câu đã bỏ)."""
     kept, dropped = [], 0
     for sentence in _SENTENCE_SPLIT_RE.split(query):
-        if any(p.search(_fold(sentence)) for p in _OVERRIDE_RES):
+        folded = " ".join(_fold(sentence).split())
+        if any(p.search(folded) for p in _OVERRIDE_RES):
             dropped += 1
         elif sentence.strip():
             kept.append(sentence.strip())
@@ -76,6 +96,15 @@ def answer(text: str) -> dict:
         if not query or _is_too_vague(query):
             note("dừng: câu hỏi chỉ có yêu cầu đổi quy tắc / lộ hướng dẫn")
             return {"output": REFUSE_OVERRIDE}
+
+    folded = " ".join(_fold(query).split())
+    if _LESSON_DIFFICULTY_RE.fullmatch(folded):
+        note("dừng: câu hỏi đánh giá độ khó của bài")
+        return {"output": HANDOFF}
+
+    if _HOMEWORK_REQUEST_RE.search(folded):
+        note("dừng: yêu cầu làm hộ bài tập")
+        return {"output": HOMEWORK}
 
     if _only_points_at_video(query):
         note("dừng: câu chỉ trỏ 'đoạn này' mà không nêu ý nào")

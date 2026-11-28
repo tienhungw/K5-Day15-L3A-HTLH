@@ -191,4 +191,4 @@ flowchart TD
 
 | Thời điểm | Đổi gì | Vì sao |
 |---|---|---|
-|  |  |  |
+| 28/11/2026 · Hiệp | Xử lý câu hỏi đánh giá độ khó cả bài và yêu cầu làm hộ rõ ràng trước khi tra đoạn. Cho câu hỏi về khái niệm system prompt đi qua bộ lọc. | B20 đi thẳng tới lời báo thiếu thông tin; B12 nêu rõ lý do từ chối. Yêu cầu tiết lộ hướng dẫn nội bộ vẫn bị chặn. Đối chiếu cục bộ: 19/21 câu giữ nguyên đường đi và đầu vào model. |
