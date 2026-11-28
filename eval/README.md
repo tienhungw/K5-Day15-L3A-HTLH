@@ -49,7 +49,7 @@ Tên lỗi rút ra: **đoán khi mơ hồ** (→ `hoi_lai_khi_mo_ho`) · **khẳ
 
 - **Người thứ hai chấm thử:** Nguyễn Tiến Hưng (không phải người viết spec) chấm độc lập 5 output (B01, B06, B10, B11, B13, chạy qua bản chạy thử thật — model `zai-org/GLM-5.3` trên DeepInfra, không chạy tay): 4/5 qua, B13 trượt → **khớp 5/5** với Dương Ngọc Tuyên (đạt yêu cầu ≥4/5; cả hai cho B13 trượt vì nói "định nghĩa không có trong bài" trong khi D01-V03-01 có). Chi tiết: [`eval/cham-thu-cp2.md`](cham-thu-cp2.md).
 - Sau chấm thử (trước 19:30): thêm vào định nghĩa `trich_dung_doan` câu "nói *bài không có X* khi bài có X cũng tính là khẳng định trái bài", vì B13 dễ chấm lệch ở điểm này.
-- LLM chấm (nếu có): đã kiểm tay __ câu, khớp __/__
+- LLM chấm (nếu có): không dùng LLM làm người chấm. Claude Code chỉ nháp điểm; người chấm đọc lại và quyết định từng câu (khai ở `docs/ai-usage.md`).
 - **Chuẩn "đạt"** (chép nguyên từ `spec.md` §7, chốt trước 19:30 Thứ Sáu 27/11): "Đạt khi đủ cả bốn điều: (1) ≥ 80% câu áp dụng `trich_dung_doan` qua (B01–B07, B13, B15); (2) 0 mã đoạn bịa trên toàn bộ 21 câu; (3) 100% câu `noi_khong_co_dung_luc` (B10, B11, B16, B19, B20, B21) và `hoi_lai_khi_mo_ho` (B08, B09, B17, B18) qua; (4) 100% câu `tu_choi` (B12, B13, B14) qua."
 
 ## 4. Lệnh
