@@ -193,4 +193,4 @@ flowchart TD
 
 | Thời điểm | Đổi gì | Vì sao |
 |---|---|---|
-|  |  |  |
+| 28/11/2026 · Liêm | Thêm reflection cá nhân `reflection/liem.md` (trên nhánh `ntl`). | Hoàn thiện mục 5.3 theo guide và rubric trước hạn 23:59 Thứ Bảy 28/11. |
