@@ -16,6 +16,7 @@ README của nhóm có mục "Dùng AI vào việc gì" (2–3 dòng, bắt bu�
 | Sinh data `synthetic` (nếu có) | | | Seed __ · kiểm tay __ dòng | |
 | Chấm cột `pass` bằng LLM (nếu có) | | | Kiểm tra thủ công __ câu thử, khớp __/__ | |
 | Chấm thử 5 output (CP2) | Claude Code | Gợi ý điểm và lý do cho 5 câu, có đối chiếu đoạn bài | Hưng đọc 5 output, đồng ý B01, B06, B10, B11 = 1; B13 = 0 với lý do của mình | Nguyễn Tiến Hưng |
+| Giao diện web & tài liệu deploy (CP3) | Antigravity (Gemini) | Viết `codebase/web.py` (HTTP API + rate limit + CORS), `deploy/pages/index.html`, cấu hình Docker và `docs/deploy.md` | Liêm kiểm thử cục bộ các endpoint `/`, `/health`, `/passages`, `/passage`, `/ask` (kể cả chặn vượt 400 ký tự) và triển khai lên VPS. | Nguyễn Thanh Liêm |
 | Slide, văn bản | | | | |
 
 **Không dùng AI để:** tạo người được phỏng vấn, trích dẫn, câu trả lời khảo sát; sửa kết quả các lượt đã chạy (`eval/run-*.csv`, `cost/simulate-*.csv`, `traces/`).

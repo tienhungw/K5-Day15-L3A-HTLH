@@ -1,6 +1,6 @@
 # Data card — dữ liệu bản chạy thử dùng
 
-> Điền ở guide bước 2.4 (bản đầu ở CP2, đủ ở CP3). Ôn lại: ngày 6 · lab ngày 6. Chấm ở rubric R4.
+> Bản đủ CP3 (hoàn thiện từ bản đầu CP2, guide bước 2.4). Ôn lại: ngày 6 · lab ngày 6. Chấm ở rubric R4.
 > Không commit nguyên tài liệu khoá, dữ liệu cá nhân thật hay nguyên file data BTC cấp — chỉ đoạn trích ngắn, bản viết lại, hoặc số đã tổng hợp.
 
 ## Dataset 1 · Bài học mẫu có mã đoạn (`data/lessons/d01-ai-llm-foundation.md`)
