@@ -184,6 +184,7 @@ flowchart TD
 | 27/11/2026 · Hiệp | Xác nhận model CP3 bằng `eval --try` và điền 3 persona, 3 quy mô, 2 bảng giá vào `cost/personas.yaml`. | B01–B03 có token API và trích đoạn. Tần suất persona lấy từ số lượt hỏi ở §2. |
 | 27/11/2026 · Liêm | Thêm bản web `codebase/web.py` + `deploy/` (gọi cùng `answer()`, không sửa luồng), deploy tại https://hackathon-htlh.943269.xyz/; giới hạn 400 ký tự, 10 lượt / phút / IP. | Demo và video CP3 cần thao tác thật; nút mã đoạn mở nguyên văn đoạn bài để học viên tự kiểm (G11, §4). |
 | 28/11/2026 · Hưng | README: thêm link web, video 30 giây, kết quả lượt 1 và run ID. | Hồ sơ CP3. |
+| 28/11/2026 · Hưng | **Cải tiến trước lượt 2 — kiểm đầu vào trước khi tra đoạn** (`codebase/agent.py`, `guardrails.py`): (a) câu chỉ trỏ "đoạn này / phần đó / ở đây" mà không nêu tên ý nào → hỏi lại 1 câu; (b) bỏ câu chèn lệnh ("bỏ qua hướng dẫn…", "kiến thức riêng", "hướng dẫn hệ thống") trước khi tra đoạn và trước khi gửi model; chỉ còn lệnh thì từ chối rõ (`REFUSE_OVERRIDE`). Không sửa prompt, công cụ, bài mẫu. | Lượt 1 trượt B17 (đoán khi mơ hồ) và B13 (chữ của lời chèn kéo việc tra sang D01-V01-07, bỏ sót D01-V03-01). Khảo sát: 6/20 câu đã hỏi chỉ trỏ "đoạn này". Kiểm offline: chỉ B13, B14, B17 đổi đường đi; 18 câu còn lại giữ nguyên. |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 
