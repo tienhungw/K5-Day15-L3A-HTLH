@@ -193,4 +193,4 @@ flowchart TD
 
 | Thời điểm | Đổi gì | Vì sao |
 |---|---|---|
-|  |  |  |
+| 28/11/2026 · Hưng | Thêm `reflection/nguyen-tien-hung.md`; khai dùng AI cho reflection ở `docs/ai-usage.md`. Không đổi code, câu thử, kết quả. | Guide bước 5.3, hạn 23:59. |

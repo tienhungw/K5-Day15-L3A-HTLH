@@ -21,5 +21,6 @@ README của nhóm có mục "Dùng AI vào việc gì" (2–3 dòng, bắt bu�
 | Cải tiến trước lượt 2 (CP4) | Claude Code | Đọc trace lượt 1, viết `_only_points_at_video` và `_strip_override` trong `codebase/agent.py`, câu `REFUSE_OVERRIDE`; viết script so đường đi cũ / mới của 21 câu + 7 câu ngoài bộ (không gọi model) | Hưng xem kết quả so đường đi (chỉ B13, B14, B17 đổi), chạy `run.py`, `eval`, `simulate` | Nguyễn Tiến Hưng |
 | Báo cáo đánh giá, chi phí (CP4) | Claude Code | Nháp `eval/report.md` mục 1, 3, 4, `eval/README.md` mục 5–6, `cost/cost-estimate.md`, `spec.md` §7–§8 từ số của `run.py score` và `simulate-1-summary.md` | Số chép từ output lệnh, không điền tay; Hưng đọc lại trước khi nộp | Nguyễn Tiến Hưng |
 | Slide (CP4) | Claude Code | Dựng `slides/demo-slides.html` → `demo-slides.pdf` theo `slides/outline.md`, mỗi trang có số và file nguồn | Hưng kiểm từng con số đối chiếu file nguồn ghi ở chân trang | Nguyễn Tiến Hưng |
+| Reflection cá nhân (sau CP4) | Claude Code | Nháp `reflection/nguyen-tien-hung.md` từ lịch sử commit và báo cáo của Hưng | Hưng đọc lại, sửa câu chữ theo ý mình trước 23:59 | Nguyễn Tiến Hưng |
 
 **Không dùng AI để:** tạo người được phỏng vấn, trích dẫn, câu trả lời khảo sát; sửa kết quả các lượt đã chạy (`eval/run-*.csv`, `cost/simulate-*.csv`, `traces/`).
