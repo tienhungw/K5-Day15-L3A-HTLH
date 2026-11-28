@@ -12,7 +12,9 @@
 | Giả thuyết · đào data · khảo sát | [evidence/hypothesis.md](evidence/hypothesis.md) · [evidence/data-mining.md](evidence/data-mining.md) (chạy lại: `python evidence/dao_data.py`) · [evidence/survey/](evidence/survey/questions.md) (chạy lại: `python evidence/survey/dem_khao_sat.py`) · tổng hợp [evidence/summary.md](evidence/summary.md) |
 | Spec | [spec.md](spec.md) |
 | Bản chạy thử | dòng lệnh: `python run.py` · web: https://hackathon-htlh.943269.xyz/ (chạy local: `python codebase/web.py`, xem [docs/deploy.md](docs/deploy.md)) · [video 30 giây](https://drive.google.com/file/d/191NynkjyMcNHuiG28t8T55m5qGC4OfOS/view?usp=sharing) |
-| Lượt 1 | 18/21 (86%) · run ID `run-1@20261127-235046` · chưa đạt chuẩn §7 → [eval/report.md](eval/report.md) |
+| Đánh giá | lượt 1 **18/21 (86%)** `run-1@20261127-235046` → một cải tiến → lượt 2 **20/21 (95%)** `run-2@20261128-083514` · chưa đạt chuẩn §7 (còn B20) → [eval/report.md](eval/report.md) |
+| Chi phí | **$0.00016 / task thành công** (DeepSeek-V4.1-Flash) · $0.52 / tháng ở kịch bản cơ sở 350 học viên → [cost/cost-estimate.md](cost/cost-estimate.md) |
+| Slide | [demo-slides.pdf](demo-slides.pdf) (nguồn: [slides/demo-slides.html](slides/demo-slides.html)) |
 
 **Data BTC:** nguyên file `data/preclass` của bộ đề để ở `data-btc/preclass/` trên máy (đã chặn trong `.gitignore`), không commit. Repo chỉ chứa số đã tổng hợp.
 
@@ -134,5 +136,5 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 | 4 | Bản chạy thử làm trọn lát cắt | `codebase/` · lệnh ở mục "Lệnh" |
 | 5 | Định nghĩa "tốt" + bộ câu thử | `data/DATA_CARD.md` · `eval/` |
 | 6 | Mô phỏng chi phí khi dùng thật | `cost/` |
-| 7 | Slide + demo + video dự phòng | slide trong repo (PDF, PPTX, HTML…) hoặc link slide ở form CP4 · video 30 giây (CP3, quay trên bản web, AI thật): https://drive.google.com/file/d/191NynkjyMcNHuiG28t8T55m5qGC4OfOS/view?usp=sharing |
+| 7 | Slide + demo + video dự phòng | [demo-slides.pdf](demo-slides.pdf) · video 30 giây (CP3, quay trên bản web, AI thật): https://drive.google.com/file/d/191NynkjyMcNHuiG28t8T55m5qGC4OfOS/view?usp=sharing |
 | + | *Bonus:* người dùng thử | `validation/log.md` |

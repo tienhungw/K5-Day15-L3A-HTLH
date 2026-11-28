@@ -1,0 +1,51 @@
+﻿run_id,session,persona,turns,inputs,model,model_calls,tool_calls,tokens_in,tokens_out,latency_s,error,tokens_by_model
+simulate-1@20261128-083636,S001,dung_vua,1,Chatbot với model khác nhau chỗ nào vậy?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,841,140,2.153,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 841, ""out"": 140}}"
+simulate-1@20261128-083636,S002,dung_vua,1,cái này là sao?,,0,0,0,0,0.0,,{}
+simulate-1@20261128-083636,S003,dung_it,1,Khi nào nên chọn model nhỏ thay vì model lớn?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,872,132,3.608,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 872, ""out"": 132}}"
+simulate-1@20261128-083636,S004,dung_vua,1,"Phần này tôi chưa hiểu, có video chi tiết hơn không",deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,864,15,2.076,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 864, ""out"": 15}}"
+simulate-1@20261128-083636,S005,dung_it,1,Giải thích đoạn này trực quan hơn,,0,0,0,0,0.0,,{}
+simulate-1@20261128-083636,S006,dung_it,1,Model trả lời 50 token thì nó chạy bao nhiêu vòng sinh?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,863,60,1.79,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 863, ""out"": 60}}"
+simulate-1@20261128-083636,S007,dung_it,1,Bài hôm nay có khó không?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,620,9,1.563,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 620, ""out"": 9}}"
+simulate-1@20261128-083636,S008,dung_vua,1,"Phần này tôi chưa hiểu, có video chi tiết hơn không",deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,864,15,1.975,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 864, ""out"": 15}}"
+simulate-1@20261128-083636,S009,dung_it,1,"Phần này tôi chưa hiểu, có video chi tiết hơn không",deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,864,15,1.603,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 864, ""out"": 15}}"
+simulate-1@20261128-083636,S010,dung_vua,1,tôi hỏi về một số vấn đề chưa hiểu,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,844,7,1.45,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 844, ""out"": 7}}"
+simulate-1@20261128-083636,S011,dung_vua,1,Chatbot với model khác nhau chỗ nào vậy?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,841,222,3.006,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 841, ""out"": 222}}"
+simulate-1@20261128-083636,S012,dung_vua,1,Để temperature = 0 thì câu trả lời luôn đúng đúng không?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,893,151,2.494,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 893, ""out"": 151}}"
+simulate-1@20261128-083636,S013,dung_vua,1,Lab ngày mai học phòng nào vậy?,,0,1,0,0,0.004,,{}
+simulate-1@20261128-083636,S014,dung_it,1,Vậy context window càng to thì model càng thông minh hả?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,917,156,2.524,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 917, ""out"": 156}}"
+simulate-1@20261128-083636,S015,dung_nhieu,1,Lab ngày mai học phòng nào vậy?,,0,1,0,0,0.004,,{}
+simulate-1@20261128-083636,S016,dung_it,1,Giải thích cơ chế hoạt động của RAG,,0,1,0,0,0.003,,{}
+simulate-1@20261128-083636,S017,dung_it,1,agent loop là gì,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,739,87,1.6,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 739, ""out"": 87}}"
+simulate-1@20261128-083636,S018,dung_vua,1,Sao chatbot nhớ được câu mình hỏi lúc nãy? Model có trí nhớ à?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,855,134,2.116,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 855, ""out"": 134}}"
+simulate-1@20261128-083636,S019,dung_vua,1,"Phần này tôi chưa hiểu, có video chi tiết hơn không",deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,864,15,1.991,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 864, ""out"": 15}}"
+simulate-1@20261128-083636,S020,dung_it,1,Giải thích cơ chế hoạt động của RAG,,0,1,0,0,0.006,,{}
+simulate-1@20261128-083636,S021,dung_it,1,GPT-4 có chính xác bao nhiêu lớp attention?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,880,9,1.418,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 880, ""out"": 9}}"
+simulate-1@20261128-083636,S022,dung_nhieu,1,agent loop là gì,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,739,183,2.412,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 739, ""out"": 183}}"
+simulate-1@20261128-083636,S023,dung_vua,1,Model trả lời 50 token thì nó chạy bao nhiêu vòng sinh?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,863,60,1.587,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 863, ""out"": 60}}"
+simulate-1@20261128-083636,S024,dung_it,1,cái này là sao?,,0,0,0,0,0.0,,{}
+simulate-1@20261128-083636,S025,dung_nhieu,1,Model trả lời 50 token thì nó chạy bao nhiêu vòng sinh?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,863,60,1.563,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 863, ""out"": 60}}"
+simulate-1@20261128-083636,S026,dung_nhieu,1,Khi nào nên chọn model nhỏ thay vì model lớn?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,872,132,2.982,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 872, ""out"": 132}}"
+simulate-1@20261128-083636,S027,dung_it,1,tôi hỏi về một số vấn đề chưa hiểu,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,844,7,1.494,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 844, ""out"": 7}}"
+simulate-1@20261128-083636,S028,dung_vua,1,agent loop là gì,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,739,87,1.805,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 739, ""out"": 87}}"
+simulate-1@20261128-083636,S029,dung_it,1,agent loop là gì,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,739,87,2.081,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 739, ""out"": 87}}"
+simulate-1@20261128-083636,S030,dung_it,1,?,,0,0,0,0,0.0,,{}
+simulate-1@20261128-083636,S031,dung_vua,1,Model trả lời 50 token thì nó chạy bao nhiêu vòng sinh?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,863,60,1.695,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 863, ""out"": 60}}"
+simulate-1@20261128-083636,S032,dung_vua,1,Để temperature = 0 thì câu trả lời luôn đúng đúng không?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,893,151,2.907,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 893, ""out"": 151}}"
+simulate-1@20261128-083636,S033,dung_vua,1,cái này là sao?,,0,0,0,0,0.0,,{}
+simulate-1@20261128-083636,S034,dung_it,1,Giải thích cơ chế hoạt động của RAG,,0,1,0,0,0.003,,{}
+simulate-1@20261128-083636,S035,dung_it,1,"Phần này tôi chưa hiểu, có video chi tiết hơn không",deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,864,9,1.811,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 864, ""out"": 9}}"
+simulate-1@20261128-083636,S036,dung_it,1,Lab ngày mai học phòng nào vậy?,,0,1,0,0,0.004,,{}
+simulate-1@20261128-083636,S037,dung_nhieu,1,Sao chatbot nhớ được câu mình hỏi lúc nãy? Model có trí nhớ à?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,855,134,2.16,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 855, ""out"": 134}}"
+simulate-1@20261128-083636,S038,dung_it,1,Sao chatbot nhớ được câu mình hỏi lúc nãy? Model có trí nhớ à?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,855,134,2.249,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 855, ""out"": 134}}"
+simulate-1@20261128-083636,S039,dung_nhieu,1,Giải thích cơ chế hoạt động của RAG,,0,1,0,0,0.008,,{}
+simulate-1@20261128-083636,S040,dung_it,1,Vậy context window càng to thì model càng thông minh hả?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,917,156,2.45,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 917, ""out"": 156}}"
+simulate-1@20261128-083636,S041,dung_nhieu,1,Lab ngày mai học phòng nào vậy?,,0,1,0,0,0.004,,{}
+simulate-1@20261128-083636,S042,dung_it,1,Lịch học tuần sau thế nào?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,621,16,2.667,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 621, ""out"": 16}}"
+simulate-1@20261128-083636,S043,dung_vua,1,tôi hỏi về một số vấn đề chưa hiểu,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,844,7,3.83,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 844, ""out"": 7}}"
+simulate-1@20261128-083636,S044,dung_it,1,Hỏi model về chuyện tuần trước mà nó trả lời rất tự tin thì tin được không?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,915,192,2.712,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 915, ""out"": 192}}"
+simulate-1@20261128-083636,S045,dung_it,1,"Phần này tôi chưa hiểu, có video chi tiết hơn không",deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,864,9,1.398,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 864, ""out"": 9}}"
+simulate-1@20261128-083636,S046,dung_vua,1,Giải thích đoạn này trực quan hơn,,0,0,0,0,0.0,,{}
+simulate-1@20261128-083636,S047,dung_nhieu,1,Giải thích cơ chế hoạt động của RAG,,0,1,0,0,0.006,,{}
+simulate-1@20261128-083636,S048,dung_it,1,Hỏi model về chuyện tuần trước mà nó trả lời rất tự tin thì tin được không?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,915,192,2.73,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 915, ""out"": 192}}"
+simulate-1@20261128-083636,S049,dung_vua,1,Model trả lời 50 token thì nó chạy bao nhiêu vòng sinh?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,863,60,2.118,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 863, ""out"": 60}}"
+simulate-1@20261128-083636,S050,dung_vua,1,Khi nào nên chọn model nhỏ thay vì model lớn?,deepseek-ai/DeepSeek-V4.1-Flash-1017,1,2,872,132,2.127,,"{""deepseek-ai/DeepSeek-V4.1-Flash-1017"": {""in"": 872, ""out"": 132}}"

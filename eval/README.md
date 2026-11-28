@@ -61,10 +61,12 @@ Tên lỗi rút ra: **đoán khi mơ hồ** (→ `hoi_lai_khi_mo_ho`) · **khẳ
 | Lượt | Run ID | Model | Cấu hình (prompt / công cụ / thay đổi) | Đạt / tổng | % | Đạt chuẩn? |
 |---|---|---|---|---|---|---|
 | 1 | `run-1@20261127-235046` | `deepseek-ai/DeepSeek-V4.1-Flash-1017` | code `main` `dc057e5`: lọc câu mơ hồ → `search_lesson` → model → guardrails (Hiệp); chấm: Dương Ngọc Tuyên | 18/21 | 86% | chưa — trượt điều (1) `trich_dung_doan` 7/9 = 78% < 80%, (3) B17, (4) B13; đạt điều (2) 0 mã bịa |
-| 2 | | | | __/__ | | |
+| 2 | `run-2@20261128-083514` | `deepseek-ai/DeepSeek-V4.1-Flash-1017` | code nhánh `cp4-cai-tien` `6d105f6`: thêm kiểm đầu vào trước khi tra đoạn (câu chỉ trỏ "đoạn này" → hỏi lại; bỏ câu chèn lệnh); prompt, công cụ, bài mẫu giữ nguyên; chấm: Nguyễn Tiến Hưng (Claude Code nháp điểm + lý do, Hưng duyệt) | 20/21 | 95% | chưa — đạt điều (1) 9/9, (2) 0 mã bịa, (4) 3/3; trượt điều (3) vì B20 |
 
 Lượt chạy lại vì lỗi kỹ thuật, lượt sau CP4: ghi thêm dòng, không sửa dòng cũ.
 
 ## 6. Lỗi chính
 
-Tóm 2–3 dòng từ `eval/report.md`: nhóm lỗi lớn nhất · đã sửa gì · còn lại gì.
+- **Nhóm lỗi lớn nhất lượt 1:** câu hỏi đi thẳng vào bước tra đoạn mà chưa được kiểm — câu chỉ trỏ "đoạn này" bị đoán (B17), lời chèn lệnh kéo lệch việc tra và làm hệ thống nói sai "không có trong bài" (B13).
+- **Đã sửa:** thêm bước kiểm đầu vào bằng code trước khi tra đoạn → nhóm lỗi 0/2 → 2/2, tổng 18/21 → 20/21; 0 mã bịa ở cả hai lượt.
+- **Còn lại:** B20 trượt ở lượt 2 do model dao động (cùng input, model trả khác lượt 1) → bước tiếp: chuyển câu đánh giá / ngoài nội dung sang nhánh code, đặt `temperature` thấp, chạy lặp nhiều lần. Chi tiết: [`report.md`](report.md) mục 3–4.

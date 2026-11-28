@@ -14,9 +14,12 @@ README của nhóm có mục "Dùng AI vào việc gì" (2–3 dòng, bắt bu�
 | Rà câu hỏi phỏng vấn / khảo sát | Claude Code | Soạn 7 câu hỏi mở về chuyện đã xảy ra; gắn nhãn 22 câu trả lời khảo sát (`evidence/survey/nhan.csv`) và viết `dem_khao_sat.py` | Đọc lại 22 dòng nhãn đối chiếu `results.csv`, sửa dòng gắn sai: __ dòng | Nguyễn Tiến Hưng |
 | Viết câu thử (benchmark) | | | Mỗi câu thử có `source`; câu thử AI viết được ghi rõ | |
 | Sinh data `synthetic` (nếu có) | | | Seed __ · kiểm tay __ dòng | |
-| Chấm cột `pass` bằng LLM (nếu có) | | | Kiểm tra thủ công __ câu thử, khớp __/__ | |
+| Chấm cột `pass` lượt 2 (CP4) | Claude Code | Nháp điểm 1/0 và lý do cho 21 câu của `eval/run-2.csv` theo `metric_spec.yaml`, so trace hai lượt để tách câu đổi do cải tiến và câu đổi do model dao động (B07, B20) | **Hưng phải đọc lại 21 output và giữ / sửa điểm trước khi nộp CP4**; cột `ghi_chu` ghi lý do từng câu. Lượt 1 do Tuyên chấm. | Nguyễn Tiến Hưng |
 | Chấm thử 5 output (CP2) | Claude Code | Gợi ý điểm và lý do cho 5 câu, có đối chiếu đoạn bài | Hưng đọc 5 output, đồng ý B01, B06, B10, B11 = 1; B13 = 0 với lý do của mình | Nguyễn Tiến Hưng |
 | Giao diện web & tài liệu deploy (CP3) | Antigravity (Gemini) | Viết `codebase/web.py` (HTTP API + rate limit + CORS), `deploy/pages/index.html`, cấu hình Docker và `docs/deploy.md` | Liêm kiểm thử cục bộ các endpoint `/`, `/health`, `/passages`, `/passage`, `/ask` (kể cả chặn vượt 400 ký tự) và triển khai lên VPS. | Nguyễn Thanh Liêm |
-| Slide, văn bản | | | | |
+| Chấm thử 5 output (CP2) — cột Tuyên | Claude Code (phiên của Tuyên) | Nháp điểm và lý do cho 5 câu theo metric spec | Tuyên đọc lại, giữ nguyên điểm (ghi ở nhánh `tuyen-cp2`, commit `ce8746e`) | Dương Ngọc Tuyên |
+| Cải tiến trước lượt 2 (CP4) | Claude Code | Đọc trace lượt 1, viết `_only_points_at_video` và `_strip_override` trong `codebase/agent.py`, câu `REFUSE_OVERRIDE`; viết script so đường đi cũ / mới của 21 câu + 7 câu ngoài bộ (không gọi model) | Hưng xem kết quả so đường đi (chỉ B13, B14, B17 đổi), chạy `run.py`, `eval`, `simulate` | Nguyễn Tiến Hưng |
+| Báo cáo đánh giá, chi phí (CP4) | Claude Code | Nháp `eval/report.md` mục 1, 3, 4, `eval/README.md` mục 5–6, `cost/cost-estimate.md`, `spec.md` §7–§8 từ số của `run.py score` và `simulate-1-summary.md` | Số chép từ output lệnh, không điền tay; Hưng đọc lại trước khi nộp | Nguyễn Tiến Hưng |
+| Slide (CP4) | Claude Code | Dựng `slides/demo-slides.html` → `demo-slides.pdf` theo `slides/outline.md`, mỗi trang có số và file nguồn | Hưng kiểm từng con số đối chiếu file nguồn ghi ở chân trang | Nguyễn Tiến Hưng |
 
 **Không dùng AI để:** tạo người được phỏng vấn, trích dẫn, câu trả lời khảo sát; sửa kết quả các lượt đã chạy (`eval/run-*.csv`, `cost/simulate-*.csv`, `traces/`).
