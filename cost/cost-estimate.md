@@ -20,8 +20,9 @@
   - cơ sở **350** = 50% của 700 *(tự ước tính)*
   - cao **700** = toàn bộ lớp *(tự ước tính)*
 - **Giá** 2 mức model (USD / 1 triệu token):
-  - `deepseek-ai/DeepSeek-V4.1-Flash-1017`: vào 0,20 · ra 0,60 — https://deepinfra.com/deepseek-ai/DeepSeek-V4.1-Flash-1017/api · xem 27/11/2026
+  - `deepseek-ai/DeepSeek-V4.1-Flash-1017`: vào **0,20** · cached **0,006** · ra **0,60** — https://deepinfra.com/deepseek-ai/DeepSeek-V4.1-Flash-1017/api · xem 27/11/2026 *(kịch bản chuẩn tính bảo thủ theo giá không cache $0,20; giá cached $0,006 xét thêm ở mục 4)*
   - `zai-org/GLM-5.3`: vào 0,90 · ra 4,00 — https://deepinfra.com/zai-org/GLM-5.3/api · xem 27/11/2026
+- **Tỷ giá quy đổi tiền Việt (`usd_to_vnd`):** **1 USD = 26.030 ₫** — giá bán ra niêm yết Vietcombank (`https://www.vietcombank.com.vn`, xem ngày 28/11/2026).
 - **Tỉ lệ đạt** dùng để tính: **20/21 (95%)** — lượt `run-2@20261128-083514` (lượt 2, `eval/run-2.csv`)
 - **Đo token trên model** `deepseek-ai/DeepSeek-V4.1-Flash-1017`, **tính giá** cho cả DeepSeek-V4.1-Flash và GLM-5.3. GLM tách token khác nên số token thật có thể lệch *(chưa đo trên GLM ở lượt này)*.
 
@@ -37,24 +38,25 @@ Lượt mô phỏng: `cost/simulate-1.csv` · run ID `simulate-1@20261128-083636
 
 | Model | Chi phí / phiên | Chi phí / task thành công | / tháng — thấp (230) | / tháng — cơ sở (350) | / tháng — cao (700) | / người / tháng (cơ sở) |
 |---|---:|---:|---:|---:|---:|---:|
-| DeepSeek-V4.1-Flash (vào 0,2 · ra 0,6 $/1M) | $0.00015 | **$0.00016** | $0.34 | **$0.52** | $1.04 | $0.0015 |
-| GLM-5.3 (vào 0,9 · ra 4,0 $/1M) | $0.00077 | $0.00081 | $1.75 | $2.66 | $5.33 | $0.0076 |
+| DeepSeek-V4.1-Flash (vào 0,2 · cached 0,006 · ra 0,6 $/1M) | $0.00015 *(≈ 4 ₫)* | **$0.00016 *(≈ 4 ₫)*** | $0.34 *(≈ 8.931 ₫)* | **$0.52 *(≈ 13.591 ₫)*** | $1.04 *(≈ 27.181 ₫)* | $0.0015 *(≈ 39 ₫)* |
+| GLM-5.3 (vào 0,9 · ra 4,0 $/1M) | $0.00077 *(≈ 20 ₫)* | $0.00081 *(≈ 21 ₫)* | $1.75 *(≈ 45.548 ₫)* | $2.66 *(≈ 69.311 ₫)* | $5.33 *(≈ 138.623 ₫)* | $0.0076 *(≈ 198 ₫)* |
 
-Chi phí / task thành công = chi phí trung bình mỗi phiên ÷ tỉ lệ đạt (95%) — **không coi như đạt 100%**.
+Chi phí / task thành công = chi phí trung bình mỗi phiên ÷ tỉ lệ đạt (95%) — **không coi như đạt 100%**. Quy đổi VND tính trên giá trị USD đầy đủ từ `cost/simulate-1.csv` theo tỷ giá 26.030 ₫/USD.
 
 **Vì sao rẻ:** mỗi câu chỉ một lời gọi model (workflow cố định, `spec.md` §4), và các nhánh code chặn trước model — câu mơ hồ, câu chỉ trỏ "đoạn này", câu không tra được đoạn nào, câu chỉ có lệnh chèn — **không gọi model**. Trung bình 0,7 lời gọi model / phiên (≈30% câu dừng ở code). Đầu vào chỉ gồm tối đa 3 đoạn bài (~420–680 token), không gửi lại cả bài.
 
 ## 3. So với impact
 
 - **Impact / người / tháng** (`spec.md` §2, cơ sở): ≈ **0,75 giờ** học viên đỡ phải đối chiếu / rời bài sang nguồn ngoài (43 giờ / tháng ÷ 58 người nhận câu trả lời không trích mốc). Thấp 11 giờ / tháng, cao 83 giờ / tháng toàn nhóm.
-- **Chi phí / người / tháng** (cơ sở, DeepSeek-V4.1-Flash): **$0.0015** — cả lớp 350 người **$0.52 / tháng**; kịch bản cao 700 người với model đắt hơn (GLM-5.3) vẫn chỉ **$5.33 / tháng**.
-- **Kết luận một dòng — đáng làm không:** **Đáng làm** — chi phí model không đáng kể so với ≈0,75 giờ / người / tháng (kể cả khi impact thật chỉ bằng kịch bản thấp 11 giờ / tháng, mỗi giờ học viên đỡ được tốn chưa tới $0.05); điểm nghẽn là **chất lượng** (lượt 2 còn trượt B20, model dao động), không phải tiền.
+- **Chi phí / người / tháng** (cơ sở, DeepSeek-V4.1-Flash): **$0.0015 (≈ 39 ₫)** — cả lớp 350 người **$0.52 / tháng (≈ 13.591 ₫)**; kịch bản cao 700 người với model đắt hơn (GLM-5.3) vẫn chỉ **$5.33 / tháng (≈ 138.623 ₫)**.
+- **Kết luận một dòng — đáng làm không:** **Đáng làm** — chi phí model chỉ khoảng **39 ₫ / người / tháng** (~**4 ₫ / câu hỏi thành công**) so với ≈0,75 giờ / người / tháng tiết kiệm được (kể cả ở kịch bản thấp 11 giờ / tháng, mỗi giờ học viên đỡ được tốn chưa tới 1.250 ₫); điểm nghẽn là **chất lượng** (lượt 2 còn trượt B20, model dao động), không phải tiền.
 
 ## 4. Độ nhạy và chi phí ngoài model
 
 | Cần gạt | Đổi chi phí / tháng (cơ sở) | Ghi chú |
 |---|---|---|
-| Đổi DeepSeek-V4.1-Flash → GLM-5.3 | $0.52 → $2.66 (×5,1) | Chỉ đáng nếu GLM giảm lỗi; lượt 2 trên DeepSeek đã 95% |
+| Dùng prompt cache đầu vào ($0.006 cached / 1M) | $0.52 (13.591 ₫) → **$0.34 (8.824 ₫)** nếu 50% cached · **$0.16 (4.058 ₫)** nếu 100% cached | Phần `SYSTEM` cố định lặp lại mọi lượt gọi dễ đạt cache hit, giảm thêm ~35–70% chi phí |
+| Đổi DeepSeek-V4.1-Flash → GLM-5.3 | $0.52 (13.591 ₫) → $2.66 (69.311 ₫) (×5,1) | Chỉ đáng nếu GLM giảm lỗi; lượt 2 trên DeepSeek đã 95% |
 | Tỉ lệ đạt 95% → 86% (lượt 1) | chi phí / task thành công $0.00016 → ≈$0.00017 | Chất lượng ảnh hưởng chi phí / task thành công ít hơn ảnh hưởng tới niềm tin của học viên |
 | Bỏ các nhánh code chặn trước model (mọi câu đều gọi model) | ≈ +40% *(tự ước tính: 0,7 → 1,0 lời gọi / phiên)* | Nhánh code vừa rẻ vừa ổn định hơn model (xem B20 ở `eval/report.md`) |
 | Gửi cả bài (18 đoạn) thay vì 3 đoạn tra được | ≈ ×5 token vào *(tự ước tính: bài mẫu ~3.000 token)* | Còn làm loãng ngữ cảnh — đúng ý D01-V03-02 |
