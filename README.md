@@ -11,6 +11,8 @@
 | Canvas | [canvas.md](canvas.md) |
 | Giả thuyết · đào data · khảo sát | [evidence/hypothesis.md](evidence/hypothesis.md) · [evidence/data-mining.md](evidence/data-mining.md) (chạy lại: `python evidence/dao_data.py`) · [evidence/survey/](evidence/survey/questions.md) (chạy lại: `python evidence/survey/dem_khao_sat.py`) · tổng hợp [evidence/summary.md](evidence/summary.md) |
 | Spec | [spec.md](spec.md) |
+| Bản chạy thử | dòng lệnh: `python run.py` · web: https://hackathon-htlh.943269.xyz/ (chạy local: `python codebase/web.py`, xem [docs/deploy.md](docs/deploy.md)) · [video 30 giây](https://drive.google.com/file/d/191NynkjyMcNHuiG28t8T55m5qGC4OfOS/view?usp=sharing) |
+| Lượt 1 | 18/21 (86%) · run ID `run-1@20261127-235046` · chưa đạt chuẩn §7 → [eval/report.md](eval/report.md) |
 
 **Data BTC:** nguyên file `data/preclass` của bộ đề để ở `data-btc/preclass/` trên máy (đã chặn trong `.gitignore`), không commit. Repo chỉ chứa số đã tổng hợp.
 
@@ -91,7 +93,8 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 
 | Thành phần | Thật / Giả | Ghi chú |
 |---|---|---|
-| Lời gọi AI ở quyết định trung tâm | Mặc định `fake` khi chưa cấu hình · `eval --try` qua DeepInfra có token API đo được ở cả 3 câu | Model CP3: `deepseek-ai/DeepSeek-V4.1-Flash-1017` · cấu hình trong `codebase/ai.py` |
+| Lời gọi AI ở quyết định trung tâm | **Thật** khi có `.env` (mặc định `fake` khi chưa cấu hình) · lượt 1 chạy thật: `eval/run-1.csv`, run ID `run-1@20261127-235046`, token từng câu trong `traces/run-1.jsonl` | Model CP3: `deepseek-ai/DeepSeek-V4.1-Flash-1017` qua DeepInfra · cấu hình trong `codebase/ai.py` |
+| Bản web | **Thật**: https://hackathon-htlh.943269.xyz/ gọi cùng `answer()` và cùng model | `codebase/web.py`, `deploy/` · cách chạy và giới hạn (400 ký tự, 10 lượt / phút / IP): [docs/deploy.md](docs/deploy.md) |
 | Công cụ tra đoạn bài (`search_lesson`, `get_passage`) | **Thật** — đọc `data/lessons/` | Bài mẫu là 18 đoạn Day01 nhóm tự viết lại (`synthetic`), không phải transcript của khoá |
 | Kiểm mã đoạn và trích dẫn sau khi model trả lời | **Thật** — `codebase/guardrails.py` | Model trả JSON; mỗi trích dẫn phải có nguyên văn trong đoạn đã tra, sai thì thay bằng câu báo thiếu căn cứ |
 
@@ -131,5 +134,5 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 | 4 | Bản chạy thử làm trọn lát cắt | `codebase/` · lệnh ở mục "Lệnh" |
 | 5 | Định nghĩa "tốt" + bộ câu thử | `data/DATA_CARD.md` · `eval/` |
 | 6 | Mô phỏng chi phí khi dùng thật | `cost/` |
-| 7 | Slide + demo + video dự phòng | slide trong repo (PDF, PPTX, HTML…) hoặc link slide ở form CP4 · link video: ____ |
+| 7 | Slide + demo + video dự phòng | slide trong repo (PDF, PPTX, HTML…) hoặc link slide ở form CP4 · video 30 giây (CP3, quay trên bản web, AI thật): https://drive.google.com/file/d/191NynkjyMcNHuiG28t8T55m5qGC4OfOS/view?usp=sharing |
 | + | *Bonus:* người dùng thử | `validation/log.md` |

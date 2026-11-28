@@ -182,6 +182,8 @@ flowchart TD
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
 | 27/11/2026 · Hiệp | Xác nhận model CP3 bằng `eval --try` và điền 3 persona, 3 quy mô, 2 bảng giá vào `cost/personas.yaml`. | B01–B03 có token API và trích đoạn. Tần suất persona lấy từ số lượt hỏi ở §2. |
+| 27/11/2026 · Liêm | Thêm bản web `codebase/web.py` + `deploy/` (gọi cùng `answer()`, không sửa luồng), deploy tại https://hackathon-htlh.943269.xyz/; giới hạn 400 ký tự, 10 lượt / phút / IP. | Demo và video CP3 cần thao tác thật; nút mã đoạn mở nguyên văn đoạn bài để học viên tự kiểm (G11, §4). |
+| 28/11/2026 · Hưng | README: thêm link web, video 30 giây, kết quả lượt 1 và run ID. | Hồ sơ CP3. |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 
