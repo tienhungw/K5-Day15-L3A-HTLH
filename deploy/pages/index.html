@@ -504,6 +504,14 @@
       line-height: 1.6;
     }
 
+    .quote-hit {
+      background: #fef08a;
+      color: #0f172a;
+      padding: 1px 3px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
     .passage-actions {
       margin-top: 10px;
       display: flex;
@@ -749,7 +757,20 @@
       return { kind: "handoff", label: "Ngoài phạm vi / Chuyển TA" };
     }
 
-    function renderTextWithButtons(container, text) {
+    function extractQuotesMap(text) {
+      const map = {};
+      const quoteRegex = /[“"]([^”"\n]+)[”"]\s*\[(D01-V\d{2}-\d{2})\]/g;
+      let match;
+      while ((match = quoteRegex.exec(text)) !== null) {
+        const quote = match[1].trim();
+        const code = match[2];
+        if (!map[code]) map[code] = [];
+        if (quote) map[code].push(quote);
+      }
+      return map;
+    }
+
+    function renderTextWithButtons(container, text, quotesMap) {
       const regex = /\[(D01-V\d{2}-\d{2})\]/g;
       let lastIndex = 0;
       let match;
@@ -763,7 +784,7 @@
         btn.className = "code-btn";
         btn.textContent = `[${code}]`;
         btn.dataset.code = code;
-        btn.addEventListener("click", () => loadPassage(code));
+        btn.addEventListener("click", () => loadPassage(code, quotesMap[code] || []));
         container.appendChild(btn);
         lastIndex = regex.lastIndex;
       }
@@ -772,9 +793,52 @@
       }
     }
 
+    function renderHighlightedBody(container, fullText, quotes) {
+      container.innerHTML = "";
+      const list = (quotes || []).filter((q) => q && fullText.includes(q));
+      if (!list.length) {
+        container.textContent = fullText;
+        return;
+      }
+      const ranges = [];
+      for (const q of list) {
+        let start = 0;
+        while (true) {
+          const idx = fullText.indexOf(q, start);
+          if (idx === -1) break;
+          ranges.push([idx, idx + q.length]);
+          start = idx + q.length;
+        }
+      }
+      ranges.sort((a, b) => a[0] - b[0]);
+      const merged = [];
+      for (const r of ranges) {
+        if (!merged.length || r[0] > merged[merged.length - 1][1]) {
+          merged.push(r);
+        } else {
+          merged[merged.length - 1][1] = Math.max(merged[merged.length - 1][1], r[1]);
+        }
+      }
+      let cursor = 0;
+      for (const [start, end] of merged) {
+        if (start > cursor) {
+          container.appendChild(document.createTextNode(fullText.slice(cursor, start)));
+        }
+        const mark = document.createElement("mark");
+        mark.className = "quote-hit";
+        mark.textContent = fullText.slice(start, end);
+        container.appendChild(mark);
+        cursor = end;
+      }
+      if (cursor < fullText.length) {
+        container.appendChild(document.createTextNode(fullText.slice(cursor)));
+      }
+    }
+
     function appendBotCard(data) {
       const output = data.output || "";
       const cls = classifyReply(output);
+      const quotesMap = extractQuotesMap(output);
       const card = document.createElement("div");
       card.className = `turn-bot ${cls.kind}`;
 
@@ -787,7 +851,7 @@
 
       const textEl = document.createElement("div");
       textEl.className = "answer-text";
-      renderTextWithButtons(textEl, output);
+      renderTextWithButtons(textEl, output, quotesMap);
 
       const metaEl = document.createElement("div");
       metaEl.className = "meta";
@@ -809,7 +873,7 @@
       threadEl.scrollTop = threadEl.scrollHeight;
     }
 
-    async function loadPassage(code) {
+    async function loadPassage(code, highlightQuotes = []) {
       activeCode = code;
       document.querySelectorAll(".code-btn, .passage-item").forEach((el) => {
         el.classList.toggle("active", el.dataset.code === code);
@@ -841,7 +905,7 @@
 
         const bodyEl = document.createElement("div");
         bodyEl.className = "passage-body";
-        bodyEl.textContent = data.text;
+        renderHighlightedBody(bodyEl, data.text, highlightQuotes);
 
         const actions = document.createElement("div");
         actions.className = "passage-actions";
@@ -955,9 +1019,10 @@
         appendBotCard(data);
         questionEl.value = "";
         updateCounter();
+        const quotesMap = extractQuotesMap(data.output || "");
         const firstCode = (data.output || "").match(/\[(D01-V\d{2}-\d{2})\]/);
         if (firstCode) {
-          loadPassage(firstCode[1]);
+          loadPassage(firstCode[1], quotesMap[firstCode[1]] || []);
         }
       } catch (err) {
         showError("Không kết nối được tới server API. Kiểm tra lại dịch vụ backend hoặc mạng.");

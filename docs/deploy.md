@@ -39,14 +39,17 @@ python codebase/web.py
 | `WEB_HOST` / `WEB_PORT` | Không | `0.0.0.0` / `8085` | Địa chỉ và cổng lắng nghe |
 | `MAX_QUERY_CHARS` | Không | `400` | Giới hạn số ký tự tối đa mỗi câu hỏi |
 | `RATE_LIMIT_MAX` / `RATE_LIMIT_WINDOW` | Không | `10` / `60` | Tối đa 10 lượt `POST /ask` / 60 giây cho mỗi IP |
+| `GLOBAL_DAILY_LIMIT` | Không | `200` | Trần tổng số lượt gọi model thật mỗi ngày (giờ VN) trên toàn server |
+| `MODEL_TEMPERATURE` | Không | `0` | Nhiệt độ gọi API để câu trả lời ổn định giữa các lần hỏi |
 | `CORS_ORIGIN` | Không | `*` | Nguồn được phép gọi API từ frontend (nên siết về domain Cloudflare Pages khi chốt link) |
 
 ## 4. Giới hạn bảo vệ API key đã cài
 
 1. **Giới hạn độ dài đầu vào (`MAX_QUERY_CHARS=400`):** Từ chối HTTP `400` nếu câu hỏi rỗng hoặc vượt quá 400 ký tự.
 2. **Rate limit theo IP thật (`10 lượt / 60 giây`):** Đọc `CF-Connecting-IP` (Cloudflare) hoặc `X-Forwarded-For` (Caddy), trả HTTP `429` kèm header `Retry-After` nếu vượt ngưỡng.
-3. **Không lộ bí mật & stack trace:** `/health` chỉ trả tên provider/model; lỗi API trả mã `503` chung chung, không in key hay traceback ra response.
-4. **Học viên tự kiểm nguồn:** Giao diện tự động chuyển mọi mã `[D01-VXX-YY]` trong câu trả lời thành nút bấm gọi `/passage?code=...`.
+3. **Trần tổng theo ngày (`GLOBAL_DAILY_LIMIT=200`):** Chỉ đếm các lượt thật sự gọi model (`model_calls > 0`); câu bị chặn bằng code ở `agent.py` không trừ hạn mức.
+4. **Không lộ bí mật & stack trace:** `/health` chỉ trả tên provider/model và số lượt dùng trong ngày; lỗi API trả mã `503` chung chung, không in key hay traceback ra response.
+5. **Học viên tự kiểm nguồn:** Giao diện tự động chuyển mọi mã `[D01-VXX-YY]` trong câu trả lời thành nút bấm gọi `/passage?code=...` và tô sáng đúng câu trích dẫn nguyên văn bên trong đoạn bài gốc.
 
 ## 5. Cập nhật khi `main` có bản sửa mới
 

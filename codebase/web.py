@@ -15,6 +15,7 @@ giống codebase/app.py và cung cấp API JSON cho frontend trên Cloudflare Pa
 from __future__ import annotations
 
 from collections import defaultdict, deque
+from datetime import datetime, timezone, timedelta
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import os
@@ -44,8 +45,47 @@ PORT = int(os.environ.get("WEB_PORT") or os.environ.get("PORT") or "8085")
 MAX_QUERY_CHARS = int(os.environ.get("MAX_QUERY_CHARS") or "400")
 RATE_LIMIT_MAX = int(os.environ.get("RATE_LIMIT_MAX") or "10")
 RATE_LIMIT_WINDOW = int(os.environ.get("RATE_LIMIT_WINDOW") or "60")
+GLOBAL_DAILY_LIMIT = int(os.environ.get("GLOBAL_DAILY_LIMIT") or "200")
 CORS_ORIGIN = (os.environ.get("CORS_ORIGIN") or "*").strip()
 FRONTEND_HTML = os.path.join(ROOT_DIR, "deploy", "pages", "index.html")
+_VN_TZ = timezone(timedelta(hours=7))
+
+
+class DailyQuota:
+    """Giới hạn tổng số lượt gọi model thật mỗi ngày (giờ VN) trên toàn server."""
+
+    def __init__(self, limit: int) -> None:
+        self.limit = max(1, limit)
+        self._day = self._today()
+        self._count = 0
+        self._lock = threading.Lock()
+
+    @staticmethod
+    def _today() -> str:
+        return datetime.now(_VN_TZ).strftime("%Y-%m-%d")
+
+    def _rollover(self) -> None:
+        today = self._today()
+        if today != self._day:
+            self._day = today
+            self._count = 0
+
+    def has_quota(self) -> bool:
+        with self._lock:
+            self._rollover()
+            return self._count < self.limit
+
+    def record(self, model_calls: int) -> None:
+        if model_calls <= 0:
+            return
+        with self._lock:
+            self._rollover()
+            self._count += model_calls
+
+    def snapshot(self) -> tuple[int, int]:
+        with self._lock:
+            self._rollover()
+            return self._count, self.limit
 
 
 class RateLimiter:
@@ -72,6 +112,7 @@ class RateLimiter:
 
 
 LIMITER = RateLimiter(RATE_LIMIT_MAX, RATE_LIMIT_WINDOW)
+DAILY_QUOTA = DailyQuota(GLOBAL_DAILY_LIMIT)
 
 
 def _client_ip(headers, fallback_addr: tuple[str, int]) -> str:
@@ -138,6 +179,7 @@ class TutorHandler(BaseHTTPRequestHandler):
             return
 
         if path == "/health":
+            used, limit = DAILY_QUOTA.snapshot()
             self._send_json(
                 200,
                 {
@@ -146,6 +188,8 @@ class TutorHandler(BaseHTTPRequestHandler):
                     "model": ai.MODEL_NAME or ("fake" if ai.MODEL_PROVIDER == "fake" else ""),
                     "max_query_chars": MAX_QUERY_CHARS,
                     "rate_limit": f"{RATE_LIMIT_MAX}/{RATE_LIMIT_WINDOW}s",
+                    "daily_model_calls": used,
+                    "daily_model_limit": limit,
                 },
             )
             return
@@ -217,6 +261,13 @@ class TutorHandler(BaseHTTPRequestHandler):
             )
             return
 
+        if not DAILY_QUOTA.has_quota():
+            self._send_json(
+                429,
+                {"error": f"Hệ thống demo đã đạt trần {GLOBAL_DAILY_LIMIT} lượt gọi AI trong ngày. Bạn vẫn có thể xem các đoạn bài gốc ở khung bên phải."},
+            )
+            return
+
         tracing.begin("app")
         try:
             result = answer(question)
@@ -225,6 +276,7 @@ class TutorHandler(BaseHTTPRequestHandler):
             self._send_json(503, {"error": f"Chưa gọi được mô hình AI: {type(exc).__name__}"})
             return
         summary, _ = tracing.end()
+        DAILY_QUOTA.record(summary["model_calls"])
 
         output = result.get("output", "") if isinstance(result, dict) else str(result)
         self._send_json(

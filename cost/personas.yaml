@@ -27,12 +27,17 @@ personas:
     source: "spec.md §2 và evidence/dao_data.py M8: 33/144 người, 709 câu trong 21 ngày, quy về tháng 30 ngày."
 
 # Dùng giá niêm yết trước ưu đãi để dự phóng chi phí, tính toàn bộ đầu vào theo giá không cache.
+# DeepSeek-V4.1-Flash-1017 có thêm giá cache hit đầu vào $0.006 / 1M token (đưa vào bảng độ nhạy ở cost/cost-estimate.md).
 prices:
   - model: deepseek-ai/DeepSeek-V4.1-Flash-1017
     input: 0.20
     output: 0.60
-    source: "https://deepinfra.com/deepseek-ai/DeepSeek-V4.1-Flash-1017/api · xem 27/11/2026"
+    source: "https://deepinfra.com/deepseek-ai/DeepSeek-V4.1-Flash-1017/api · xem 27/11/2026 (cached input: $0.006 / 1M)"
   - model: zai-org/GLM-5.3
     input: 0.90
     output: 4.00
     source: "https://deepinfra.com/zai-org/GLM-5.3/api · xem 27/11/2026"
+
+usd_to_vnd:
+  rate: 26030
+  source: "Tỷ giá bán ra Vietcombank (https://www.vietcombank.com.vn), xem ngày 28/11/2026"
